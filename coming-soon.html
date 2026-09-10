@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-80RRB6GC1G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-80RRB6GC1G');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Primary Meta Tags -->
+  <title>MAXY - Launching Soon</title>
+  <meta name="title" content="MAXY - Launching Soon" />
+  <meta name="description" content="Something delicious is coming. Sign up to get notified the moment MAXY officially launches!" />
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://maxy.ng/coming-soon.html" />
+  <meta property="og:title" content="MAXY - Launching Soon" />
+  <meta property="og:description" content="Something delicious is coming. Sign up to get notified the moment MAXY officially launches!" />
+  <meta property="og:image" content="https://maxy.ng/images/maxy-3d-logo.png" />
+
+  <!-- Twitter / X -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://maxy.ng/coming-soon.html" />
+  <meta property="twitter:title" content="MAXY - Launching Soon" />
+  <meta property="twitter:description" content="Something delicious is coming. Sign up to get notified the moment MAXY officially launches!" />
+  <meta property="twitter:image" content="https://maxy.ng/images/maxy-3d-logo.png" />
+  
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="navbar">
+    <div class="logo-container">
+      <div class="logo">MAXY</div>
+      <span class="rc-number">RC: 9678352</span>
+    </div>
+    <a href="index.html" class="btn btn-gold">&larr; BACK TO HOME</a>
+  </header>
+
+  <!-- Hero & Notification Form Section -->
+  <section class="hero-stacked">
+    <div class="hero-content-centered">
+      <span class="gold-text">PRODUCT LAUNCH</span>
+      <h1>THIS ITEM IS <span class="gold-text">COMING SOON</span></h1>
+      <p>We are perfecting the formula, design, and experience for this product.<br>Stay tuned for our official launch in <strong>January 2027</strong>.</p>
+      
+      <!-- Early Access Email Form -->
+      <form id="notifyForm" class="signup-form">
+        <input 
+          type="email" 
+          id="userEmail" 
+          placeholder="Enter your email for updates" 
+          required 
+        />
+        <button type="submit" class="btn btn-gold">NOTIFY ME</button>
+      </form>
+      
+      <!-- Dynamic Confirmation / Error Message Container -->
+      <p id="formFeedback" class="gold-text" style="margin-top: 15px; display: none;"></p>
+
+      <!-- Action Buttons -->
+      <div style="margin-top: 30px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <button id="openModalBtn" class="btn btn-gold">EXCLUSIVE SNEAK PEEK</button>
+        <a href="index.html" class="btn btn-outline">RETURN HOME</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Preview Modal Component -->
+  <div id="previewModal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-content">
+      <button id="closeModalBtn" class="close-btn" aria-label="Close modal">&times;</button>
+      <h2>Product Sneak Peek</h2>
+      <p class="gold-text">Here is what we are crafting for you:</p>
+      <div class="modal-body">
+        <ul>
+          <li><strong>Premium Quality Ingredients:</strong> Carefully selected and crafted for maximum taste.</li>
+          <li><strong>Modern Packaging:</strong> Designed for convenience and freshness.</li>
+          <li><strong>Eco-Friendly Process:</strong> Sustainably sourced and packaged.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Centralized External JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
