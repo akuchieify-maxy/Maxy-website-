@@ -120,15 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault(); 
       const email = signupEmail.value.trim();
 
-      if (!email) {
-        signupFeedback.textContent = "Please enter your email address.";
-        signupFeedback.style.display = "block";
-        signupFeedback.style.color = "#e74c3c";
-        return;
-      }
-
-      if (!isValidEmail(email)) {
-        signupFeedback.textContent = "Please enter a valid email address (e.g., name@example.com).";
+      if (!email || !isValidEmail(email)) {
+        signupFeedback.textContent = "Please enter a valid email address.";
         signupFeedback.style.display = "block";
         signupFeedback.style.color = "#e74c3c";
         return;
@@ -147,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         await submitFormPayload(email, "MAXY Homepage Early Access");
-        signupFeedback.textContent = `Success! Welcome to MAXY Early Access, ${email}.`;
+        signupFeedback.textContent = "Success! You are on the early access list.";
         signupFeedback.style.color = "var(--gold)";
         signupEmail.value = "";
       } catch (error) {
@@ -173,14 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const submitBtn = notifyForm.querySelector('button[type="submit"]');
       const originalBtnText = submitBtn.innerHTML;
 
-      if (!emailValue) {
-        formFeedback.textContent = "Please enter your email address.";
-        formFeedback.style.display = "block";
-        formFeedback.style.color = "#e74c3c";
-        return;
-      }
-
-      if (!isValidEmail(emailValue)) {
+      if (!emailValue || !isValidEmail(emailValue)) {
         formFeedback.textContent = "Please enter a valid email address.";
         formFeedback.style.display = "block";
         formFeedback.style.color = "#e74c3c";
@@ -200,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         await submitFormPayload(emailValue, "MAXY Coming Soon Page");
-        formFeedback.textContent = `Thank you! We will notify ${emailValue} when this product launches.`;
+        formFeedback.textContent = "Thank you! We will notify you when this product launches.";
         formFeedback.style.color = "var(--gold)";
         userEmail.value = '';
       } catch (error) {
@@ -288,10 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modal && openModalBtn && closeModalBtn) {
     openModalBtn.addEventListener('click', () => {
       modal.style.display = 'flex';
-      updatePageMeta(
-        "MAXY - Exclusive Product Sneak Peek", 
-        "Preview upcoming Nigerian food innovations from MAXY launching January 2027."
-      );
     });
 
     closeModalBtn.addEventListener('click', () => {
@@ -311,22 +293,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-
-  /* ==========================================
-     9. DYNAMIC SEO METADATA MANAGER
-     ========================================== */
-  function updatePageMeta(title, description) {
-    if (title) {
-      document.title = title;
-      const ogTitle = document.querySelector('meta[property="og:title"]');
-      if (ogTitle) ogTitle.setAttribute('content', title);
-    }
-    if (description) {
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) metaDesc.setAttribute('content', description);
-      const ogDesc = document.querySelector('meta[property="og:description"]');
-      if (ogDesc) ogDesc.setAttribute('content', description);
-    }
-  }
-
 });
+                          
