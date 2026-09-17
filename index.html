@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAXY - Official Website</title>
+
+  <!-- Google Search Console Ownership Verification -->
+  <meta name="google-site-verification" content="YYz1W11JjY6SqrPRLxnM7NbBVysKpbvyJY2sQ_HRcW8" />
+
+  <!-- Web Manifest & Favicon -->
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" type="image/png" href="images/logo.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Embedded Styling -->
+  <style>
+    html { scroll-behavior: smooth; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #030d1b; }
+    ::-webkit-scrollbar-thumb { background: #f2c779; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #e5b356; }
+    #days, #hours, #mins, #secs { font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body class="bg-[#030d1b] text-white font-sans min-h-screen flex flex-col justify-between relative">
+
+  <!-- ==================== HEADER / NAVBAR ==================== -->
+  <header class="border-b border-slate-800 bg-[#030d1b]/95 sticky top-0 z-40">
+    <div class="flex justify-between items-center px-6 md:px-12 py-4 max-w-6xl mx-auto">
+      
+      <!-- Brand Logo Image -->
+      <a href="index.html" class="flex items-center gap-2">
+        <img src="images/logo.png" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'text-2xl md:text-3xl font-extrabold text-[#f2c779] tracking-wider\'>MAXY</span>';" alt="MAXY Logo" class="h-8 md:h-10 object-contain">
+      </a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button onclick="toggleMobileMenu()" class="md:hidden text-[#f2c779] text-xl px-3 py-1 border border-[#f2c779]/40 rounded hover:border-[#f2c779] focus:outline-none">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Nav Links (Desktop) -->
+      <nav class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="#shop" class="hover:text-[#f2c779] transition-colors">Shop</a>
+        <a href="#about" class="hover:text-[#f2c779] transition-colors">About</a>
+        <a href="#contact" class="hover:text-[#f2c779] transition-colors">Contact</a>
+      </nav>
+
+      <!-- Cart Badge & Header Tag -->
+      <div class="flex items-center gap-4">
+        <button onclick="openCartModal()" class="relative text-[#f2c779] text-xl cursor-pointer focus:outline-none">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span id="cart-count" class="absolute -top-2 -right-3 bg-[#f2c779] text-[#030d1b] text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+        </button>
+        <div class="border-2 border-[#f2c779] text-[#f2c779] font-bold px-2 py-1 rounded text-xs tracking-wider">
+          MAXY
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Collapsible Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#06162a] px-6 py-4 space-y-3 text-center text-sm">
+      <a href="#shop" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-[#f2c779] font-semibold transition-colors">Shop</a>
+      <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-[#f2c779] font-semibold transition-colors">About</a>
+      <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-[#f2c779] font-semibold transition-colors">Contact</a>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION & COUNTDOWN ==================== -->
+  <section class="text-center py-10 px-4">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#f2c779] tracking-wide mb-2">More Than A Product</h1>
+    <p class="text-xs md:text-sm tracking-widest text-gray-300 font-semibold mb-8">OFFICIAL LAUNCH JANUARY 2027</p>
+
+    <!-- Countdown Timer -->
+    <div class="flex justify-center gap-3 sm:gap-4 md:gap-6">
+      <div class="border border-[#f2c779] px-4 py-3 rounded bg-[#06162a]/60 min-w-[70px] sm:min-w-[80px]">
+        <span id="days" class="text-2xl md:text-3xl font-bold text-[#f2c779]">00</span>
+        <p class="text-[9px] md:text-xs text-gray-400 mt-1">DAYS</p>
+      </div>
+      <div class="border border-[#f2c779] px-4 py-3 rounded bg-[#06162a]/60 min-w-[70px] sm:min-w-[80px]">
+        <span id="hours" class="text-2xl md:text-3xl font-bold text-[#f2c779]">00</span>
+        <p class="text-[9px] md:text-xs text-gray-400 mt-1">HOURS</p>
+      </div>
+      <div class="border border-[#f2c779] px-4 py-3 rounded bg-[#06162a]/60 min-w-[70px] sm:min-w-[80px]">
+        <span id="mins" class="text-2xl md:text-3xl font-bold text-[#f2c779]">00</span>
+        <p class="text-[9px] md:text-xs text-gray-400 mt-1">MINS</p>
+      </div>
+      <div class="border border-[#f2c779] px-4 py-3 rounded bg-[#06162a]/60 min-w-[70px] sm:min-w-[80px]">
+        <span id="secs" class="text-2xl md:text-3xl font-bold text-[#f2c779]">00</span>
+        <p class="text-[9px] md:text-xs text-gray-400 mt-1">SECS</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PRODUCTS SECTION ==================== -->
+  <section id="shop" class="px-4 py-6 max-w-6xl mx-auto w-full">
+    <div class="relative text-center mb-8">
+      <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
+      <span class="relative bg-[#030d1b] px-4 text-[#f2c779] text-base md:text-lg font-semibold">Our Products</span>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+
+      <!-- Product 1: Kuli Kuli -->
+      <div class="bg-[#06162a] border border-[#f2c779]/40 hover:border-[#f2c779] transition p-3 rounded text-center flex flex-col justify-between group">
+        <a href="kuli-kuli.html" class="block cursor-pointer">
+          <div class="border border-slate-700 p-2 mb-3 bg-[#030d1b] overflow-hidden rounded">
+            <img src="images/kuli-kuli.jpg" onerror="this.onerror=null; this.src='https://via.placeholder.com/150?text=Kuli+Kuli'" alt="Kuli Kuli" class="w-full h-24 md:h-28 object-cover rounded group-hover:scale-105 transition-transform duration-300">
+          </div>
+          <h3 class="text-xs md:text-sm font-bold tracking-wide group-hover:text-[#f2c779] transition-colors">KULI KULI</h3>
+          <p class="text-[11px] md:text-xs text-[#f2c779] font-medium my-1">Milk • Honey • Beef</p>
+        </a>
+        <a href="kuli-kuli.html" class="bg-[#f2c779] hover:bg-[#e5b356] text-[#030d1b] font-bold text-xs py-2 px-2 rounded w-full mt-2 transition-colors block text-center">
+          Select Flavors & Reserve
+        </a>
+      </div>
+
+      <!-- Product 2: Donkwa -->
+      <div class="bg-[#06162a] border border-slate-800 opacity-90 p-3 rounded text-center flex flex-col justify-between">
+        <div>
+          <div class="border border-slate-700 p-2 mb-3 bg-[#030d1b]">
+            <img src="images/donkwa.jpg" onerror="this.src='https://via.placeholder.com/150?text=Donkwa'" alt="Donkwa" class="w-full h-24 md:h-28 object-cover rounded grayscale hover:grayscale-0 transition-all">
+          </div>
+          <h3 class="text-xs md:text-sm font-bold tracking-wide text-gray-300">DONKWA</h3>
+          <p class="text-[10px] md:text-xs text-gray-400 font-medium my-1 uppercase">Future Product</p>
+        </div>
+        <button onclick="handleAddToCart('DONKWA', 'Standard Pack', 1500)" class="bg-slate-700 hover:bg-slate-600 text-gray-200 font-bold text-xs py-2 px-2 rounded w-full mt-2 transition-colors">
+          Add to Cart
+        </button>
+      </div>
+
+      <!-- Product 3: Fura -->
+      <div class="bg-[#06162a] border border-slate-800 opacity-90 p-3 rounded text-center flex flex-col justify-between">
+        <div>
+          <div class="border border-slate-700 p-2 mb-3 bg-[#030d1b]">
+            <img src="images/fura.jpg" onerror="this.src='https://via.placeholder.com/150?text=Fura'" alt="Fura" class="w-full h-24 md:h-28 object-cover rounded grayscale hover:grayscale-0 transition-all">
+          </div>
+          <h3 class="text-xs md:text-sm font-bold tracking-wide text-gray-300">FURA</h3>
+          <p class="text-[10px] md:text-xs text-gray-400 font-medium my-1 uppercase">Future Product</p>
+        </div>
+        <button onclick="handleAddToCart('FURA', 'Standard Pack', 1500)" class="bg-slate-700 hover:bg-slate-600 text-gray-200 font-bold text-xs py-2 px-2 rounded w-full mt-2 transition-colors">
+          Add to Cart
+        </button>
+      </div>
+
+      <!-- Product 4: Groundnut Oil -->
+      <div class="bg-[#06162a] border border-slate-800 opacity-90 p-3 rounded text-center flex flex-col justify-between">
+        <div>
+          <div class="border border-slate-700 p-2 mb-3 bg-[#030d1b]">
+            <img src="images/groundnut-oil.jpg" onerror="this.src='https://via.placeholder.com/150?text=Groundnut+Oil'" alt="Groundnut Oil" class="w-full h-24 md:h-28 object-cover rounded grayscale hover:grayscale-0 transition-all">
+          </div>
+          <h3 class="text-xs md:text-sm font-bold tracking-wide text-gray-300">GROUNDNUT OIL</h3>
+          <p class="text-[10px] md:text-xs text-gray-400 font-medium my-1 uppercase">Future Product</p>
+        </div>
+        <button onclick="handleAddToCart('GROUNDNUT OIL', 'Standard Bottle', 2500)" class="bg-slate-700 hover:bg-slate-600 text-gray-200 font-bold text-xs py-2 px-2 rounded w-full mt-2 transition-colors">
+          Add to Cart
+        </button>
+      </div>
+
+      <!-- Product 5: Beef Seasoning -->
+      <div class="bg-[#06162a] border border-slate-800 opacity-90 p-3 rounded text-center flex flex-col justify-between">
+        <div>
+          <div class="border border-slate-700 p-2 mb-3 bg-[#030d1b]">
+            <img src="images/beef-seasoning.jpg" onerror="this.src='https://via.placeholder.com/150?text=Beef+Seasoning'" alt="Beef Seasoning" class="w-full h-24 md:h-28 object-cover rounded grayscale hover:grayscale-0 transition-all">
+          </div>
+          <h3 class="text-xs md:text-sm font-bold tracking-wide text-gray-300">BEEF SEASONING</h3>
+          <p class="text-[10px] md:text-xs text-gray-400 font-medium my-1 uppercase">Future Product</p>
+        </div>
+        <button onclick="handleAddToCart('BEEF SEASONING', 'Standard Pack', 1200)" class="bg-slate-700 hover:bg-slate-600 text-gray-200 font-bold text-xs py-2 px-2 rounded w-full mt-2 transition-colors">
+          Add to Cart
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FOUNDER, MISSION & VISION SECTION ==================== -->
+  <section id="about" class="text-center py-10 px-4 max-w-4xl mx-auto w-full">
+    <div class="relative text-center mb-8">
+      <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
+      <span class="relative bg-[#030d1b] px-4 text-[#f2c779] text-base md:text-lg font-semibold">Meet The Founder</span>
+    </div>
+
+    <div class="mb-10">
+      <img src="images/founder.jpg" onerror="this.src='https://via.placeholder.com/100?text=Founder'" alt="Magnus Ifeanyi Akuchie" class="w-24 h-24 rounded-full border-2 border-[#f2c779] mx-auto mb-3 object-cover shadow-lg">
+      <h3 class="text-[#f2c779] font-bold text-lg">Magnus Ifeanyi Akuchie</h3>
+      <p class="text-gray-400 text-xs uppercase tracking-wider font-semibold">Founder & CEO</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+      <!-- Mission Card -->
+      <div class="bg-[#06162a] border border-slate-800 p-6 rounded-lg shadow-md flex flex-col justify-center items-center">
+        <div class="text-[#f2c779] text-xl mb-2"><i class="fa-solid fa-bullseye"></i></div>
+        <h4 class="text-[#f2c779] font-bold text-sm md:text-base uppercase tracking-wider mb-2">Our Mission</h4>
+        <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
+          Redefining and reimagining Northern Nigerian street snacks for both national and global stages, repacked for every household.
+        </p>
+      </div>
+
+      <!-- Vision Card -->
+      <div class="bg-[#06162a] border border-slate-800 p-6 rounded-lg shadow-md flex flex-col justify-center items-center">
+        <div class="text-[#f2c779] text-xl mb-2"><i class="fa-solid fa-eye"></i></div>
+        <h4 class="text-[#f2c779] font-bold text-sm md:text-base uppercase tracking-wider mb-2">Our Vision</h4>
+        <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
+          To make MAXY a go-to snack for breakfast alongside tea, cornflakes, oats, custard, pap, noodles, and garri, as well as a snack enjoyed by people from all walks of life.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer id="contact" class="border-t border-slate-800 py-6 px-6 text-xs text-gray-400">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+      <div>&copy; 2026 MAXY. All rights reserved.</div>
+      <div class="font-semibold text-gray-300">RC Number 9678352</div>
+
+      <!-- Legal Links -->
+      <div class="flex gap-4 text-xs">
+        <button onclick="toggleModal('terms-modal')" class="hover:text-[#f2c779] transition-colors underline">Terms & Conditions</button>
+        <span>|</span>
+        <button onclick="toggleModal('privacy-modal')" class="hover:text-[#f2c779] transition-colors underline">Privacy Policy</button>
+      </div>
+
+      <!-- Contact Links -->
+      <div class="flex gap-5 text-lg text-white">
+        <a href="https://www.facebook.com/profile.php?id=61579185106202" target="_blank" rel="noopener noreferrer" class="hover:text-[#f2c779] transition-colors" title="Facebook">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="mailto:akuchimagnus2015@gmail.com" class="hover:text-[#f2c779] transition-colors" title="Email Us">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+        <a href="https://wa.me/2348132225381" target="_blank" rel="noopener noreferrer" class="hover:text-[#f2c779] transition-colors" title="Chat on WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== TERMS & PRIVACY MODALS ==================== -->
+  <div id="terms-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-[#06162a] border border-[#f2c779] rounded-lg max-w-2xl w-full max-h-[80vh] flex flex-col p-6 text-left relative shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-3 mb-4">
+        <h3 class="text-[#f2c779] font-bold text-lg">Terms & Conditions</h3>
+        <button onclick="toggleModal('terms-modal')" class="text-gray-400 hover:text-white text-xl">&times;</button>
+      </div>
+      <div class="overflow-y-auto space-y-3 text-xs text-gray-300 pr-2 leading-relaxed">
+        <p><strong>1. Introduction:</strong> Welcome to MAXY. By accessing our platform or purchasing our products, you agree to comply with these Terms & Conditions.</p>
+        <p><strong>2. Product Availability:</strong> Product orders are subject to availability. Prices and availability are subject to change prior to official launch dates.</p>
+        <p><strong>3. Orders & Payment:</strong> All payments made through the platform are processed securely. Orders will be confirmed once payment verification is completed.</p>
+        <p><strong>4. Intellectual Property:</strong> All content, images, and branding associated with MAXY are the intellectual property of Magnus Ifeanyi Akuchie and MAXY brand (RC Number 9678352).</p>
+      </div>
+      <button onclick="toggleModal('terms-modal')" class="mt-4 bg-[#f2c779] text-[#030d1b] font-bold py-2 rounded text-xs hover:bg-[#e5b356] transition-colors">Close</button>
+    </div>
+  </div>
+
+  <div id="privacy-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-[#06162a] border border-[#f2c779] rounded-lg max-w-2xl w-full max-h-[80vh] flex flex-col p-6 text-left relative shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-3 mb-4">
+        <h3 class="text-[#f2c779] font-bold text-lg">Privacy Policy</h3>
+        <button onclick="toggleModal('privacy-modal')" class="text-gray-400 hover:text-white text-xl">&times;</button>
+      </div>
+      <div class="overflow-y-auto space-y-3 text-xs text-gray-300 pr-2 leading-relaxed">
+        <p><strong>1. Data Collection:</strong> We collect essential information such as contact details and shipping addresses strictly to fulfill orders and communicate updates regarding MAXY products.</p>
+        <p><strong>2. Data Protection:</strong> Your personal information is kept confidential and is never sold or shared with unauthorized third parties.</p>
+        <p><strong>3. Cookies:</strong> Our website uses minimal cookies to improve navigation and user experience during your visit.</p>
+        <p><strong>4. Contact Us:</strong> For any privacy-related queries, please contact our support team through our social channels or official contact points.</p>
+      </div>
+      <button onclick="toggleModal('privacy-modal')" class="mt-4 bg-[#f2c779] text-[#030d1b] font-bold py-2 rounded text-xs hover:bg-[#e5b356] transition-colors">Close</button>
+    </div>
+  </div>
+
+  <!-- ==================== CART OVERLAY MODAL ==================== -->
+  <div id="cart-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#06162a] border border-slate-700 rounded-xl w-full max-w-md p-6 flex flex-col max-h-[90vh]">
+      
+      <div class="flex justify-between items-center border-b border-slate-700 pb-3 mb-4">
+        <h2 class="text-lg font-bold text-[#f2c779] flex items-center gap-2">
+          <i class="fa-solid fa-basket-shopping"></i> Your Pre-Order Cart
+        </h2>
+        <button onclick="closeCartModal()" class="text-gray-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Cart Items List -->
+      <div id="cart-items-list" class="overflow-y-auto flex-grow space-y-3 pr-1 mb-4 text-xs">
+        <p class="text-gray-400 text-center py-6">Your cart is empty.</p>
+      </div>
+
+      <!-- Total Price Summary -->
+      <div class="border-t border-slate-700 pt-3 mb-4 flex justify-between items-center">
+        <span class="text-xs text-gray-300 font-semibold">Total Estimated Price:</span>
+        <span id="cart-total-price" class="text-lg font-bold text-[#f2c779]">N0</span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex gap-3">
+        <button onclick="closeCartModal()" class="w-1/3 border border-slate-700 hover:bg-slate-800 text-xs font-bold py-2.5 rounded transition">Close</button>
+        <button onclick="checkoutViaWhatsApp()" class="w-2/3 bg-green-600 hover:bg-green-500 text-white text-xs font-bold py-2.5 rounded transition text-center flex items-center justify-center gap-2">
+          <i class="fa-brands fa-whatsapp text-sm"></i> Order via WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TOAST NOTIFICATION ==================== -->
+  <div id="toast" class="fixed bottom-5 right-5 left-5 md:left-auto md:w-80 bg-[#f2c779] text-[#030d1b] font-bold text-xs px-4 py-3 rounded shadow-lg transition-all duration-300 transform translate-y-20 opacity-0 z-50 flex items-center justify-between">
+    <span id="toast-message">Item added to cart!</span>
+    <i id="toast-icon" class="fa-solid fa-circle-check text-base"></i>
+  </div>
+
+   <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    const WHATSAPP_NUMBER = "2348132225381";
+    let toastTimeout;
+
+    // Mobile Menu Toggle Function
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    // Modal Display Toggle
+    function toggleModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.toggle('hidden');
+    }
+
+    // Shared Cart Helper Functions
+    function getCart() {
+      return JSON.parse(localStorage.getItem('maxy_cart')) || [];
+    }
+
+    function updateCartBadge() {
+      const cart = getCart();
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const cartCountEl = document.getElementById('cart-count');
+      if (cartCountEl) cartCountEl.innerText = totalCount;
+    }
+
+    function openCartModal() {
+      renderCartItems();
+      const modal = document.getElementById('cart-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeCartModal() {
+      const modal = document.getElementById('cart-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function handleAddToCart(productName, variant, price) {
+      let cart = getCart();
+      const existingIndex = cart.findIndex(item => item.productName === productName && item.variant === variant);
+
+      if (existingIndex > -1) {
+        cart[existingIndex].quantity += 1;
+      } else {
+        cart.push({ productName, variant: variant || 'Standard Pack', price: price || 1500, quantity: 1 });
+      }
+
+      localStorage.setItem('maxy_cart', JSON.stringify(cart));
+      updateCartBadge();
+      showToast(`${productName} added to cart!`);
+    }
+
+    function renderCartItems() {
+      const cart = getCart();
+      const listContainer = document.getElementById('cart-items-list');
+      const totalPriceEl = document.getElementById('cart-total-price');
+
+      if (!listContainer) return;
+
+      if (cart.length === 0) {
+        listContainer.innerHTML = '<p class="text-gray-400 text-center py-6">Your cart is empty.</p>';
+        if (totalPriceEl) totalPriceEl.innerText = "N0";
+        return;
+      }
+
+      let html = '';
+      let grandTotal = 0;
+
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        grandTotal += itemTotal;
+        html += `
+          <div class="flex justify-between items-center bg-[#030d1b] border border-slate-800 p-3 rounded">
+            <div>
+              <div class="font-bold text-white">${item.productName} (${item.variant})</div>
+              <div class="text-gray-400 text-[11px]">N${item.price.toLocaleString()} x ${item.quantity}</div>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-[#f2c779]">N${itemTotal.toLocaleString()}</span>
+              <button onclick="removeCartItem(${index})" class="text-red-400 hover:text-red-300"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </div>
+        `;
+      });
+
+      listContainer.innerHTML = html;
+      if (totalPriceEl) totalPriceEl.innerText = "N" + grandTotal.toLocaleString();
+    }
+
+    function removeCartItem(index) {
+      let cart = getCart();
+      cart.splice(index, 1);
+      localStorage.setItem('maxy_cart', JSON.stringify(cart));
+      updateCartBadge();
+      renderCartItems();
+    }
+
+    function checkoutViaWhatsApp() {
+      const cart = getCart();
+
+      if (cart.length === 0) {
+        alert("Your cart is empty! Please add items before placing an order.");
+        return;
+      }
+
+      let message = "Hello MAXY Team! 👋\nI would like to place a pre-order:\n\n";
+      let grandTotal = 0;
+
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        grandTotal += itemTotal;
+        message += `${index + 1}. *${item.productName} (${item.variant})*\n   Qty: ${item.quantity} | Subtotal: ₦${itemTotal.toLocaleString()}\n`;
+      });
+
+      message += `\n*Total Order Amount: ₦${grandTotal.toLocaleString()}*\n\nPlease let me know how to finalize payment and delivery. Thank you!`;
+
+      const encodedUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(encodedUrl, '_blank');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      if (!toast || !toastMsg) return;
+
+      toastMsg.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    // ==================== COUNTDOWN TIMER FUNCTIONALITY ====================
+    // Target: January 1, 2027
+    const targetLaunchDate = new Date("January 1, 2027 00:00:00").getTime();
+
+    function updateLaunchTimer() {
+      const now = new Date().getTime();
+      const distance = targetLaunchDate - now;
+
+      const daysEl = document.getElementById('days');
+      const hoursEl = document.getElementById('hours');
+      const minsEl = document.getElementById('mins');
+      const secsEl = document.getElementById('secs');
+
+      // Check if elements exist in HTML
+      if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        daysEl.innerText = String(days).padStart(2, '0');
+        hoursEl.innerText = String(hours).padStart(2, '0');
+        minsEl.innerText = String(minutes).padStart(2, '0');
+        secsEl.innerText = String(seconds).padStart(2, '0');
+      } else {
+        daysEl.innerText = "00";
+        hoursEl.innerText = "00";
+        minsEl.innerText = "00";
+        secsEl.innerText = "00";
+      }
+    }
+
+    // Start running the timer automatically
+    updateCartBadge();
+    updateLaunchTimer();
+    setInterval(updateLaunchTimer, 1000);
+  </script>
+</body>
+</html>
