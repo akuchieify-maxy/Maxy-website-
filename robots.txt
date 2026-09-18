@@ -1,6 +1,0 @@
-# Allow all search engines to crawl and index all pages on the MAXY website
-User-agent: *
-Allow: /
-
-# Direct search engine crawlers to your sitemap
-Sitemap: https://maxy-website-2.vercel.app/sitemap.xml
