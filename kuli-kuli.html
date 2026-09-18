@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="en"><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MAXY - Kuli Kuli Pre-Order</title>
 
-  <!-- ==================== GOOGLE ANALYTICS (GA4) ==================== -->
+  <!-- Google Analytics (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-553585715"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-553585715');
   </script>
+
+  <!-- Google Search Console Verification -->
+  <meta name="google-site-verification" content="YYz1W11JjY6SqrPRLxnM7NbBVysKpbvyJY2sQ_HRcW8" />
 
   <!-- Web Manifest & Favicon -->
   <link rel="manifest" href="site.webmanifest">
@@ -25,19 +26,13 @@
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-    
-<head>
-    <link rel="manifest" href="site.webmanifest">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAXY - Pre-Launch Reservation</title>
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #030d1b; }
+    ::-webkit-scrollbar-thumb { background: #f2c779; border-radius: 4px; }
+  </style>
 </head>
 <body class="bg-[#030d1b] text-white font-sans min-h-screen flex flex-col justify-between relative">
 
@@ -55,7 +50,7 @@
         <i class="fa-solid fa-arrow-left"></i> Back to Shop
       </a>
 
-      <!-- Cart Button with Click Event -->
+      <!-- Cart Button -->
       <button onclick="openCartModal()" class="relative text-[#f2c779] text-xl focus:outline-none">
         <i class="fa-solid fa-cart-shopping"></i>
         <span id="cart-count" class="absolute -top-2 -right-3 bg-[#f2c779] text-[#030d1b] text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
@@ -85,7 +80,7 @@
           </div>
 
           <p class="text-xs text-gray-300 leading-relaxed mb-6">
-            Reserve your favorite flavors ahead of our official January launch. Select your variants and complete the pre-launch reservation form.
+            Reserve your favorite flavors ahead of our official launch. Select your variants and complete the pre-launch reservation form.
           </p>
 
           <!-- Variant Selector -->
@@ -234,10 +229,9 @@
     <i class="fa-solid fa-circle-check text-base"></i>
   </div>
 
-  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+      <!-- ==================== JAVASCRIPT LOGIC ==================== -->
   <script>
-    // Configuration
-    const whatsappBusinessNumber = "2348132225381"; // Replace with your WhatsApp phone number
+    const whatsappBusinessNumber = "2348132225381";
     const variantPrices = {
       Milk: 1500,
       Honey: 2000,
@@ -253,7 +247,6 @@
       return "N" + amount.toLocaleString();
     }
 
-    // Switch flavor variants
     function selectVariant(flavor) {
       selectedVariant = flavor;
       document.getElementById('selected-flavor-text').innerText = flavor;
@@ -274,7 +267,6 @@
       }
     }
 
-    // Add selected variant & quantity to local cart array
     function addToCartWithVariant() {
       const existingItem = cart.find(item => item.variant === selectedVariant);
       if (existingItem) {
@@ -310,7 +302,6 @@
       }, 3000);
     }
 
-    // Cart Modal Functions
     function openCartModal() {
       renderCartItems();
       document.getElementById('cart-modal').classList.remove('hidden');
@@ -365,7 +356,6 @@
       renderCartItems();
     }
 
-    // Checkout Modal Functions
     function openCheckoutModal() {
       if (cart.length === 0) return;
       closeCartModal();
@@ -383,7 +373,6 @@
       document.getElementById('checkout-modal').classList.add('hidden');
     }
 
-    // Handle Pre-Order Reservation Form Submission
     function handleReservationSubmit(e) {
       e.preventDefault();
 
@@ -401,7 +390,6 @@
         itemsSummary += `• ${item.productName} (${item.variant}) - ${item.quantity} pack(s) = ${formatCurrency(total)}\n`;
       });
 
-      // Construct WhatsApp Pre-Order Message
       const message = `*NEW PRE-LAUNCH RESERVATION (MAXY)*\n\n` +
         `*Customer Name:* ${name}\n` +
         `*Phone:* ${phone}\n` +
@@ -414,12 +402,10 @@
       const encodedMsg = encodeURIComponent(message);
       const whatsappURL = `https://wa.me/${whatsappBusinessNumber}?text=${encodedMsg}`;
 
-      // Reset Cart and Form
       cart = [];
       updateCartBadge();
       closeCheckoutModal();
 
-      // Redirect user to WhatsApp to finalize reservation
       window.open(whatsappURL, '_blank');
     }
   </script>
