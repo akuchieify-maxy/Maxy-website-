@@ -229,185 +229,212 @@
     <i class="fa-solid fa-circle-check text-base"></i>
   </div>
 
-      <!-- ==================== JAVASCRIPT LOGIC ==================== -->
-  <script>
-    const whatsappBusinessNumber = "2348132225381";
-    const variantPrices = {
-      Milk: 1500,
-      Honey: 2000,
-      Beef: 2500
-    };
+        <!-- ==================== JAVASCRIPT LOGIC WITH GA4 DIAGNOSTICS ==================== -->
+<script>
+  const whatsappBusinessNumber = "2348132225381";
+  const variantPrices = {
+    Milk: 1500,
+    Honey: 2000,
+    Beef: 2500
+  };
 
-    let cart = [];
-    let selectedVariant = 'Milk';
-    let quantity = 1;
-    let toastTimeout;
+  let cart = [];
+  let selectedVariant = 'Milk';
+  let quantity = 1;
+  let toastTimeout;
 
-    function formatCurrency(amount) {
-      return "N" + amount.toLocaleString();
+  function formatCurrency(amount) {
+    return "N" + amount.toLocaleString();
+  }
+
+  function selectVariant(flavor) {
+    selectedVariant = flavor;
+    document.getElementById('selected-flavor-text').innerText = flavor;
+    document.getElementById('display-price').innerText = formatCurrency(variantPrices[flavor]);
+
+    ['Milk', 'Honey', 'Beef'].forEach(item => {
+      const btn = document.getElementById(`btn-${item}`);
+      btn.className = item === flavor 
+        ? "flavor-btn border border-[#f2c779] bg-[#f2c779] text-[#030d1b] font-bold text-xs py-2 px-2 rounded text-center transition-all"
+        : "flavor-btn border border-slate-700 bg-[#030d1b] hover:border-[#f2c779] text-gray-300 font-semibold text-xs py-2 px-2 rounded text-center transition-all";
+    });
+  }
+
+  function adjustQuantity(change) {
+    if (quantity + change >= 1) {
+      quantity += change;
+      document.getElementById('quantity-count').innerText = quantity;
     }
+  }
 
-    function selectVariant(flavor) {
-      selectedVariant = flavor;
-      document.getElementById('selected-flavor-text').innerText = flavor;
-      document.getElementById('display-price').innerText = formatCurrency(variantPrices[flavor]);
-
-      ['Milk', 'Honey', 'Beef'].forEach(item => {
-        const btn = document.getElementById(`btn-${item}`);
-        btn.className = item === flavor 
-          ? "flavor-btn border border-[#f2c779] bg-[#f2c779] text-[#030d1b] font-bold text-xs py-2 px-2 rounded text-center transition-all"
-          : "flavor-btn border border-slate-700 bg-[#030d1b] hover:border-[#f2c779] text-gray-300 font-semibold text-xs py-2 px-2 rounded text-center transition-all";
+  function addToCartWithVariant() {
+    const existingItem = cart.find(item => item.variant === selectedVariant);
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      cart.push({
+        productName: "MAXY Kuli Kuli",
+        variant: selectedVariant,
+        price: variantPrices[selectedVariant],
+        quantity: quantity
       });
     }
 
-    function adjustQuantity(change) {
-      if (quantity + change >= 1) {
-        quantity += change;
-        document.getElementById('quantity-count').innerText = quantity;
-      }
+    // --- GA4 ADD TO CART TRACKING ---
+    if (typeof gtag === 'function') {
+      gtag('event', 'add_to_cart', {
+        'transport_type': 'beacon',
+        'currency': 'NGN',
+        'value': variantPrices[selectedVariant] * quantity,
+        'items': [{
+          'item_name': 'MAXY Kuli Kuli',
+          'item_variant': selectedVariant,
+          'price': variantPrices[selectedVariant],
+          'quantity': quantity
+        }]
+      });
+      console.log('GA4 Event Sent: add_to_cart', selectedVariant);
+    } else {
+      console.warn('GA4 gtag is not defined or blocked.');
     }
 
-    function addToCartWithVariant() {
-      const existingItem = cart.find(item => item.variant === selectedVariant);
-      if (existingItem) {
-        existingItem.quantity += quantity;
-      } else {
-        cart.push({
-          productName: "MAXY Kuli Kuli",
-          variant: selectedVariant,
-          price: variantPrices[selectedVariant],
-          quantity: quantity
-        });
-      }
+    updateCartBadge();
+    showToast(`Added ${quantity}x Kuli Kuli (${selectedVariant}) to cart!`);
+  }
 
-      updateCartBadge();
-      showToast(`Added ${quantity}x Kuli Kuli (${selectedVariant}) to cart!`);
+  function updateCartBadge() {
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('cart-count').innerText = totalCount;
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toast-message').innerText = msg;
+    toast.classList.remove('translate-y-20', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-20', 'opacity-0');
+    }, 3000);
+  }
+
+  function openCartModal() {
+    renderCartItems();
+    document.getElementById('cart-modal').classList.remove('hidden');
+  }
+
+  function closeCartModal() {
+    document.getElementById('cart-modal').classList.add('hidden');
+  }
+
+  function renderCartItems() {
+    const listContainer = document.getElementById('cart-items-list');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    if (cart.length === 0) {
+      listContainer.innerHTML = '<p class="text-gray-400 text-center py-6">Your cart is empty.</p>';
+      document.getElementById('cart-total-price').innerText = "N0";
+      checkoutBtn.disabled = true;
+      checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      return;
     }
 
-    function updateCartBadge() {
-      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-      document.getElementById('cart-count').innerText = totalCount;
-    }
+    checkoutBtn.disabled = false;
+    checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
 
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      document.getElementById('toast-message').innerText = msg;
-      toast.classList.remove('translate-y-20', 'opacity-0');
-      toast.classList.add('translate-y-0', 'opacity-100');
+    let html = '';
+    let grandTotal = 0;
 
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        toast.classList.remove('translate-y-0', 'opacity-100');
-        toast.classList.add('translate-y-20', 'opacity-0');
-      }, 3000);
-    }
-
-    function openCartModal() {
-      renderCartItems();
-      document.getElementById('cart-modal').classList.remove('hidden');
-    }
-
-    function closeCartModal() {
-      document.getElementById('cart-modal').classList.add('hidden');
-    }
-
-    function renderCartItems() {
-      const listContainer = document.getElementById('cart-items-list');
-      const checkoutBtn = document.getElementById('checkout-btn');
-
-      if (cart.length === 0) {
-        listContainer.innerHTML = '<p class="text-gray-400 text-center py-6">Your cart is empty.</p>';
-        document.getElementById('cart-total-price').innerText = "N0";
-        checkoutBtn.disabled = true;
-        checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
-        return;
-      }
-
-      checkoutBtn.disabled = false;
-      checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-
-      let html = '';
-      let grandTotal = 0;
-
-      cart.forEach((item, index) => {
-        const itemTotal = item.price * item.quantity;
-        grandTotal += itemTotal;
-        html += `
-          <div class="flex justify-between items-center bg-[#030d1b] border border-slate-800 p-3 rounded">
-            <div>
-              <div class="font-bold text-white">${item.productName} (${item.variant})</div>
-              <div class="text-gray-400 text-[11px]">${formatCurrency(item.price)} x ${item.quantity}</div>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="font-bold text-[#f2c779]">${formatCurrency(itemTotal)}</span>
-              <button onclick="removeCartItem(${index})" class="text-red-400 hover:text-red-300"><i class="fa-solid fa-trash"></i></button>
-            </div>
+    cart.forEach((item, index) => {
+      const itemTotal = item.price * item.quantity;
+      grandTotal += itemTotal;
+      html += `
+        <div class="flex justify-between items-center bg-[#030d1b] border border-slate-800 p-3 rounded">
+          <div>
+            <div class="font-bold text-white">${item.productName} (${item.variant})</div>
+            <div class="text-gray-400 text-[11px]">${formatCurrency(item.price)} x ${item.quantity}</div>
           </div>
-        `;
+          <div class="flex items-center gap-3">
+            <span class="font-bold text-[#f2c779]">${formatCurrency(itemTotal)}</span>
+            <button onclick="removeCartItem(${index})" class="text-red-400 hover:text-red-300"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        </div>
+      `;
+    });
+
+    listContainer.innerHTML = html;
+    document.getElementById('cart-total-price').innerText = formatCurrency(grandTotal);
+  }
+
+  function removeCartItem(index) {
+    cart.splice(index, 1);
+    updateCartBadge();
+    renderCartItems();
+  }
+
+  function openCheckoutModal() {
+    if (cart.length === 0) return;
+    closeCartModal();
+
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+    document.getElementById('summary-total-items').innerText = `${totalItems} pack(s)`;
+    document.getElementById('summary-total-price').innerText = formatCurrency(totalPrice);
+
+    document.getElementById('checkout-modal').classList.remove('hidden');
+  }
+
+  function closeCheckoutModal() {
+    document.getElementById('checkout-modal').classList.add('hidden');
+  }
+
+  function handleReservationSubmit(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('cust-name').value;
+    const phone = document.getElementById('cust-phone').value;
+    const email = document.getElementById('cust-email').value || 'Not provided';
+    const address = document.getElementById('cust-address').value;
+
+    let itemsSummary = '';
+    let grandTotal = 0;
+
+    cart.forEach(item => {
+      const total = item.price * item.quantity;
+      grandTotal += total;
+      itemsSummary += `• ${item.productName} (${item.variant}) - ${item.quantity} pack(s) = ${formatCurrency(total)}\n`;
+    });
+
+    // --- GA4 GENERATE LEAD TRACKING ---
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        'transport_type': 'beacon',
+        'currency': 'NGN',
+        'value': grandTotal
       });
-
-      listContainer.innerHTML = html;
-      document.getElementById('cart-total-price').innerText = formatCurrency(grandTotal);
+      console.log('GA4 Event Sent: generate_lead', grandTotal);
     }
 
-    function removeCartItem(index) {
-      cart.splice(index, 1);
-      updateCartBadge();
-      renderCartItems();
-    }
+    const message = `*NEW PRE-LAUNCH RESERVATION (MAXY)*\n\n` +
+      `*Customer Name:* ${name}\n` +
+      `*Phone:* ${phone}\n` +
+      `*Email:* ${email}\n` +
+      `*Delivery Address:* ${address}\n\n` +
+      `*Reserved Items:*\n${itemsSummary}\n` +
+      `*Estimated Total Price:* ${formatCurrency(grandTotal)}\n\n` +
+      `_Note: Pre-order placed ahead of January Launch._`;
 
-    function openCheckoutModal() {
-      if (cart.length === 0) return;
-      closeCartModal();
+    const encodedMsg = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${whatsappBusinessNumber}?text=${encodedMsg}`;
 
-      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    cart = [];
+    updateCartBadge();
+    closeCheckoutModal();
 
-      document.getElementById('summary-total-items').innerText = `${totalItems} pack(s)`;
-      document.getElementById('summary-total-price').innerText = formatCurrency(totalPrice);
-
-      document.getElementById('checkout-modal').classList.remove('hidden');
-    }
-
-    function closeCheckoutModal() {
-      document.getElementById('checkout-modal').classList.add('hidden');
-    }
-
-    function handleReservationSubmit(e) {
-      e.preventDefault();
-
-      const name = document.getElementById('cust-name').value;
-      const phone = document.getElementById('cust-phone').value;
-      const email = document.getElementById('cust-email').value || 'Not provided';
-      const address = document.getElementById('cust-address').value;
-
-      let itemsSummary = '';
-      let grandTotal = 0;
-
-      cart.forEach(item => {
-        const total = item.price * item.quantity;
-        grandTotal += total;
-        itemsSummary += `• ${item.productName} (${item.variant}) - ${item.quantity} pack(s) = ${formatCurrency(total)}\n`;
-      });
-
-      const message = `*NEW PRE-LAUNCH RESERVATION (MAXY)*\n\n` +
-        `*Customer Name:* ${name}\n` +
-        `*Phone:* ${phone}\n` +
-        `*Email:* ${email}\n` +
-        `*Delivery Address:* ${address}\n\n` +
-        `*Reserved Items:*\n${itemsSummary}\n` +
-        `*Estimated Total Price:* ${formatCurrency(grandTotal)}\n\n` +
-        `_Note: Pre-order placed ahead of January Launch._`;
-
-      const encodedMsg = encodeURIComponent(message);
-      const whatsappURL = `https://wa.me/${whatsappBusinessNumber}?text=${encodedMsg}`;
-
-      cart = [];
-      updateCartBadge();
-      closeCheckoutModal();
-
-      window.open(whatsappURL, '_blank');
-    }
+    window.open(whatsappURL, '_blank');
+  }
   </script>
-</body>
-</html>
+  
