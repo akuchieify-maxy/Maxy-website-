@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAXY - Official Website</title>
+
+  <!-- ==================== GOOGLE ANALYTICS (GA4) ==================== -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-80RRB6GC1G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-80RRB6GC1G');
+  </script>
+
+  <!-- Google Search Console Ownership Verification -->
+  <meta name="google-site-verification" content="YYz1W11JjY6SqrPRLxnM7NbBVysKpbvyJY2sQ_HRcW8" />
+
+  <!-- Web Manifest & Favicon -->
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" type="image/png" href="images/logo.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Embedded Styling -->
+  <style>
+    html { scroll-behavior: smooth; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #030d1b; }
+    ::-webkit-scrollbar-thumb { background: #f2c779; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #e5b356; }
+    #days, #hours, #mins, #secs { font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body class="bg-[#030d1b] text-white font-sans min-h-screen flex flex-col justify-between relative">
+
+  <!-- ==================== HEADER / NAVBAR ==================== -->
+  <header class="border-b border-slate-800 bg-[#030d1b]/95 sticky top-0 z-40">
+    <div class="flex justify-between items-center px-6 md:px-12 py-4 max-w-6xl mx-auto">
+
+      <!-- Brand Logo Image -->
+      <a href="index.html" class="flex items-center gap-2">
+        <img src="images/logo.png" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'text-2xl md:text-3xl font-extrabold text-[#f2c779] tracking-wider\'>MAXY</span>';" alt="MAXY Logo" class="h-8 md:h-10 object-contain">
+      </a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button onclick="toggleMobileMenu()" class="md:hidden text-[#f2c779] text-xl px-3 py-1 border border-[#f2c779]/40 rounded hover:border-[#f2c779] focus:outline-none" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Nav Links (Desktop) -->
+      <nav class="hidden md:flex space-x-6 text-sm font-medium items-center">
+        <a href="#shop" class="hover:text-[#f2c779] transition-colors">Shop</a>
+        <a href="#wholesale" class="hover:text-[#f2c779] transition-colors">Wholesale</a>
+        <a href="#academy" class="hover:text-[#f2c779] transition-colors">Bootcamp &amp; Tech</a>
+        <a href="#referral" class="hover:text-[#f2c779] transition-colors">Referral</a>
+        <a href="#reviews" class="hover:text-[#f2c779] transition-colors">Reviews</a>
+        <a href="#about" class="hover:text-[#f2c779] transition-colors">About</a>
+        <button onclick="toggleModal('faq-modal')" class="hover:text-[#f2c779] transition-colors text-left">FAQ</button>
+      </nav>
+
+      <!-- Cart Badge, Account & Header Tag -->
+      <div class="flex items-center gap-4">
+        <button onclick="toggleModal('account-modal')" class="text-[#f2c779] text-lg cursor-pointer focus:outline-none hover:text-[#e5b356] transition" aria-label="Member Account" title="Member Portal">
+          <i class="fa-solid fa-user-circle"></i>
+        </button>
+        <button onclick="openCartModal()" class="relative text-[#f2c779] text-xl cursor-pointer focus:outline-none" aria-label="Open cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span id="cart-count" class="absolute -top-2 -right-3 bg-[#f2c779] text-[#030d1b] text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+        </button>
+        <div class="border-2 border-[#f2c779] text-[#f2c779] font-bold px-2 py-1 rounded text-xs tracking-wider">
+          MAXY
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Collapsible Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#06162a] px-6 py-4 space-y-3 text-center text-sm">
+      <a href="#shop" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-[#f2c779] font-semibold transition-colors">Shop</a>
+      <a href="#wholesale" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-[#f2c779] font-semibold transition-colors">Wholesale</a>
+      <a href="#academy" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-[#f2c779] font-semibold transition-colors">Bootcamp &amp; Tech</a>
+      <a href="#referral" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-[#f2c779] font-semibold transition-colors">Referral Program</a>
+      <a href="#reviews" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-[#f2c779] font-semibold transition-colors">Reviews</a>
+      <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-[#f2c779] font-semibold transition-colors">About</a>
+      <button onclick="toggleMobileMenu(); toggleModal('account-modal')" class="block w-full py-2 text-gray-200 hover:text-[#f2c779] font-semibold transition-colors">Member Account</button>
+      <button onclick="toggleMobileMenu(); toggleModal('faq-modal')" class="block w-full py-2 text-gray-200 hover:text-[#f2c779] font-semibold transition-colors">Live FAQ</button>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION & COUNTDOWN ==================== -->
+  <section class="text-center py-10 px-4">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#f2c779] tracking-wide mb-2">More Than A Product</h1>
+    <p class="text-xs md:text-sm tracking-widest text-gray-300 font-semibold mb-8">OFFICIAL LAUNCH JANUARY 2027</p>
+
+    <!-- Countdown Timer -->
+    <div class="flex justify-center gap-3 sm:gap-4 md:gap-6">
+      <div class="border border-[#f2c779] px-4 py-3 rounded bg-[#06162a]/60 min-w-[70px] sm:min-w-[80px]">
+        <span id="days" class="text-2xl md:text-3xl font-bold text-[#f2c779]">00</span>
+        <p class="text-[9px] md:text-xs text-gray-400 mt-1">DAYS</p>
+      </div>
+      <div class="border border-[#f2c779] px-4 py-3 rounded bg-[#06162a]/60 min-w-[70px] sm:min-w-[80px]">
+        <span id="hours" class="text-2xl md:text-3xl font-bold text-[#f2c779]">00</span>
+        <p class="text-[9px] md:text-xs text-gray-400 mt-1">HOURS</p>
+      </div>
+      <div class="border border-[#f2c779] px-4 py-3 rounded bg-[#06162a]/60 min-w-[70px] sm:min-w-[80px]">
+        <span id="mins" class="text-2xl md:text-3xl font-bold text-[#f2c779]">00</span>
+        <p class="text-[9px] md:text-xs text-gray-400 mt-1">MINS</p>
+      </div>
+      <div class="border border-[#f2c779] px-4 py-3 rounded bg-[#06162a]/60 min-w-[70px] sm:min-w-[80px]">
+        <span id="secs" class="text-2xl md:text-3xl font-bold text-[#f2c779]">00</span>
+        <p class="text-[9px] md:text-xs text-gray-400 mt-1">SECS</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PRODUCTS SECTION ==================== -->
+  <section id="shop" class="px-4 py-6 max-w-6xl mx-auto w-full">
+    <div class="relative text-center mb-8">
+      <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
+      <span class="relative bg-[#030d1b] px-4 text-[#f2c779] text-base md:text-lg font-semibold">Our Products</span>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+
+      <!-- Product 1: Kuli Kuli (AVAILABLE) -->
+      <div class="bg-[#06162a] border border-[#f2c779]/40 hover:border-[#f2c779] transition p-3 rounded text-center flex flex-col justify-between group">
+        <a href="kuli-kuli.html" class="block cursor-pointer">
+          <div class="border border-slate-700 p-2 mb-3 bg-[#030d1b] overflow-hidden rounded">
+            <img src="images/kuli-kuli.jpg" onerror="this.onerror=null; this.src='https://via.placeholder.com/150?text=Kuli+Kuli'" alt="Kuli Kuli" class="w-full h-24 md:h-28 object-cover rounded group-hover:scale-105 transition-transform duration-300">
+          </div>
+          <h3 class="text-xs md:text-sm font-bold tracking-wide group-hover:text-[#f2c779] transition-colors">KULI KULI</h3>
+          <p class="text-[11px] md:text-xs text-[#f2c779] font-medium my-1">Milk • Honey • Beef</p>
+        </a>
+        <div class="flex gap-2 mt-2">
+          <a href="kuli-kuli.html" class="bg-[#f2c779] hover:bg-[#e5b356] text-[#030d1b] font-bold text-[11px] py-2 px-1 rounded flex-1 transition-colors block text-center">
+            Reserve
+          </a>
+          <button onclick="showMaxyToast('Added to your Wishlist!', () => addToWishlist('Kuli Kuli (Milk/Honey/Beef)'))" class="bg-slate-800 hover:bg-slate-700 text-[#f2c779] font-bold text-[11px] py-2 px-2 rounded transition" title="Save to Wishlist">
+            <i class="fa-solid fa-heart"></i>
+</button>
+
+        </div>
+      </div>
+
+      <!-- Product 2: Donkwa (COMING SOON) -->
+      <div onclick="triggerComingSoon('DONKWA')" class="bg-[#06162a] border border-slate-800 opacity-90 p-3 rounded text-center flex flex-col justify-between cursor-pointer">
+        <div>
+          <div class="border border-slate-700 p-2 mb-3 bg-[#030d1b]">
+            <img src="images/donkwa.jpg" onerror="this.onerror=null; this.src='https://via.placeholder.com/150?text=Donkwa'" alt="Donkwa" class="w-full h-24 md:h-28 object-cover rounded grayscale hover:grayscale-0 transition-all">
+          </div>
+          <h3 class="text-xs md:text-sm font-bold tracking-wide text-gray-300">DONKWA</h3>
+          <p class="text-[10px] md:text-xs text-gray-400 font-medium my-1 uppercase">Coming Soon</p>
+        </div>
+        <button onclick="showMaxyToast('Added to your Wishlist!', () => addToWishlist('Kuli Kuli (Milk/Honey/Beef)'))" class="bg-slate-800 hover:bg-slate-700 text-[#f2c779] font-bold text-[11px] py-2 px-2 rounded transition" title="Save to Wishlist">
+            <i class="fa-solid fa-heart"></i>
+</button>
+      </div>
+
+      <!-- Product 3: Fura (COMING SOON) -->
+      <div onclick="triggerComingSoon('FURA')" class="bg-[#06162a] border border-slate-800 opacity-90 p-3 rounded text-center flex flex-col justify-between cursor-pointer">
+        <div>
+          <div class="border border-slate-700 p-2 mb-3 bg-[#030d1b]">
+            <img src="images/fura.jpg" onerror="this.onerror=null; this.src='https://via.placeholder.com/150?text=Fura'" alt="Fura" class="w-full h-24 md:h-28 object-cover rounded grayscale hover:grayscale-0 transition-all">
+          </div>
+          <h3 class="text-xs md:text-sm font-bold tracking-wide text-gray-300">FURA</h3>
+          <p class="text-[10px] md:text-xs text-gray-400 font-medium my-1 uppercase">Coming Soon</p>
+        </div>
+        <button onclick="showMaxyToast('Added to your Wishlist!', () => addToWishlist('Kuli Kuli (Milk/Honey/Beef)'))" class="bg-slate-800 hover:bg-slate-700 text-[#f2c779] font-bold text-[11px] py-2 px-2 rounded transition" title="Save to Wishlist">
+            <i class="fa-solid fa-heart"></i>
+</button>
+      </div>
+
+      <!-- Product 4: Groundnut Oil (COMING SOON) -->
+      <div onclick="triggerComingSoon('GROUNDNUT OIL')" class="bg-[#06162a] border border-slate-800 opacity-90 p-3 rounded text-center flex flex-col justify-between cursor-pointer">
+        <div>
+          <div class="border border-slate-700 p-2 mb-3 bg-[#030d1b]">
+            <img src="images/groundnut-oil.jpg" onerror="this.onerror=null; this.src='https://via.placeholder.com/150?text=Groundnut+Oil'" alt="Groundnut Oil" class="w-full h-24 md:h-28 object-cover rounded grayscale hover:grayscale-0 transition-all">
+          </div>
+          <h3 class="text-xs md:text-sm font-bold tracking-wide text-gray-300">GROUNDNUT OIL</h3>
+          <p class="text-[10px] md:text-xs text-gray-400 font-medium my-1 uppercase">Coming Soon</p>
+        </div>
+        <button onclick="showMaxyToast('Added to your Wishlist!', () => addToWishlist('Kuli Kuli (Milk/Honey/Beef)'))" class="bg-slate-800 hover:bg-slate-700 text-[#f2c779] font-bold text-[11px] py-2 px-2 rounded transition" title="Save to Wishlist">
+            <i class="fa-solid fa-heart"></i>
+</button>
+
+      </div>
+
+      <!-- Product 5: Beef Seasoning (COMING SOON) -->
+      <div onclick="triggerComingSoon('BEEF SEASONING')" class="bg-[#06162a] border border-slate-800 opacity-90 p-3 rounded text-center flex flex-col justify-between cursor-pointer">
+        <div>
+          <div class="border border-slate-700 p-2 mb-3 bg-[#030d1b]">
+            <img src="images/beef-seasoning.jpg" onerror="this.onerror=null; this.src='https://via.placeholder.com/150?text=Beef+Seasoning'" alt="Beef Seasoning" class="w-full h-24 md:h-28 object-cover rounded grayscale hover:grayscale-0 transition-all">
+          </div>
+          <h3 class="text-xs md:text-sm font-bold tracking-wide text-gray-300">BEEF SEASONING</h3>
+          <p class="text-[10px] md:text-xs text-gray-400 font-medium my-1 uppercase">Coming Soon</p>
+        </div>
+    <button onclick="showMaxyToast('Added to your Wishlist!', () => addToWishlist('Kuli Kuli (Milk/Honey/Beef)'))" class="bg-slate-800 hover:bg-slate-700 text-[#f2c779] font-bold text-[11px] py-2 px-2 rounded transition" title="Save to Wishlist">
+            <i class="fa-solid fa-heart"></i>
+</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== WHOLESALE & BULK ORDERS SECTION ==================== -->
+  <section id="wholesale" class="px-4 py-8 max-w-6xl mx-auto w-full">
+    <div class="relative text-center mb-8">
+      <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
+      <span class="relative bg-[#030d1b] px-4 text-[#f2c779] text-base md:text-lg font-semibold">Bulk & Wholesale Distribution</span>
+    </div>
+
+    <div class="bg-[#06162a] border border-[#f2c779]/40 rounded-xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-8 shadow-2xl">
+      <!-- Carton Image -->
+      <div class="w-full md:w-1/2 flex justify-center">
+        <img src="images/master-carton.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/350x420?text=MAXY+Master+Carton'" alt="MAXY Kuli Kuli Master Carton (50 Packs)" class="max-h-80 md:max-h-96 object-contain rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+      </div>
+
+      <!-- Wholesale Content -->
+      <div class="w-full md:w-1/2 text-center md:text-left">
+        <span class="bg-[#f2c779] text-[#030d1b] font-extrabold text-[10px] md:text-xs px-3 py-1 rounded-full uppercase tracking-wider">B2B &amp; Bulk Supply</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-[#f2c779] mt-3 mb-2">MAXY Master Carton (50 Packs)</h2>
+        <p class="text-xs md:text-sm text-gray-300 leading-relaxed mb-4">
+          Designed specifically for supermarkets, retailers, corporate offices, events, and wholesale distributors. Each Master Carton contains 50 individually sealed 50g packs of premium crunchy Kuli Kuli.
+        </p>
+
+        <ul class="text-xs md:text-sm text-gray-300 space-y-2 mb-6 text-left inline-block md:block">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-[#f2c779]"></i> <span><strong>Quantity:</strong> 50 Packs x 50g</span></li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-[#f2c779]"></i> <span><strong>Flavors Available:</strong> Milk, Honey, Beef, or Assorted Mix</span></li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-[#f2c779]"></i> <span><strong>Perks:</strong> Volume Tier Discount &amp; Direct Priority Delivery</span></li>
+        </ul>
+
+        <div>
+          <button onclick="toggleModal('wholesale-modal')" class="bg-[#f2c779] hover:bg-[#e5b356] text-[#030d1b] font-bold text-sm py-3 px-6 rounded-lg transition-colors inline-flex items-center gap-2 shadow-lg">
+            <i class="fa-solid fa-boxes-packing"></i> Request Bulk Quote
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== WHOLESALE ORDER MODAL ==================== -->
+  <div id="wholesale-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 items-center justify-center p-4">
+    <div class="bg-[#06162a] border border-[#f2c779] rounded-xl max-w-lg w-full max-h-[90vh] flex flex-col p-6 text-left relative shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-3 mb-4">
+        <h3 class="text-[#f2c779] font-bold text-lg flex items-center gap-2">
+          <i class="fa-solid fa-truck-ramp-box"></i> Request Master Carton Quote
+        </h3>
+        <button onclick="toggleModal('wholesale-modal')" class="text-gray-400 hover:text-white text-xl" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="overflow-y-auto pr-1">
+        <p class="text-xs text-gray-300 mb-4">
+          Provide your business or event details below. Our wholesale representative will respond via WhatsApp or email with special bulk pricing.
+        </p>
+
+        <form id="wholesale-form" onsubmit="submitWholesaleRequest(event)" class="space-y-3 text-xs">
+          <div>
+            <label class="block text-gray-300 font-semibold mb-1">Full Name / Business Name *</label>
+            <input type="text" id="ws-name" required placeholder="e.g. John Doe / Ace Supermarket" class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-white focus:outline-none focus:border-[#f2c779]">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 font-semibold mb-1">Email Address *</label>
+            <input type="email" id="ws-email" required placeholder="name@business.com" class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-white focus:outline-none focus:border-[#f2c779]">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 font-semibold mb-1">Phone / WhatsApp Number *</label>
+            <input type="tel" id="ws-phone" required placeholder="+234 812 345 6789" class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-white focus:outline-none focus:border-[#f2c779]">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 font-semibold mb-1">Carton Quantity (50 Packs per Carton) *</label>
+            <input type="number" id="ws-qty" min="1" value="1" required class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-white focus:outline-none focus:border-[#f2c779]">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 font-semibold mb-1">Flavor Selection (Tentative Pricing) *</label>
+            <select id="ws-flavor" required class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-[#f2c779] focus:outline-none focus:border-[#f2c779]">
+              <option value="Mixed Assorted (~₦100,000)">Mixed Assorted (Est. ~₦100,000 / Carton)</option>
+              <option value="All Milk (~₦75,000)">All Milk Variant (Est. ~₦75,000 / Carton)</option>
+              <option value="All Honey (~₦100,000)">All Honey Variant (Est. ~₦100,000 / Carton)</option>
+              <option value="All Beef (~₦125,000)">All Beef Variant (Est. ~₦125,000 / Carton)</option>
+              <option value="Custom Ratio">Custom Ratio (Quote provided on request)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-gray-300 font-semibold mb-1">Delivery Address / Destination State *</label>
+            <textarea id="ws-address" rows="2" required placeholder="Enter delivery location for shipping estimation..." class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-white focus:outline-none focus:border-[#f2c779]"></textarea>
+          </div>
+
+          <button type="submit" id="ws-submit-btn" class="w-full bg-[#f2c779] 
+          hover:bg-[#e5b356] text-[#030d1b] font-bold py-3 rounded text-xs transition-colors mt-2 flex justify-center items-center gap-2">
+            <span>Confirm Bootcamp Booking via WhatsApp</span>
+            <i class="fa-brands fa-whatsapp text-sm"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+    <!-- ==================== BUSINESS & TECHNOLOGY BOOTCAMP & MASTERCLASS ==================== -->
+  <section id="academy" class="px-4 py-10 max-w-6xl mx-auto w-full">
+    <div class="relative text-center mb-8">
+      <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
+      <span class="relative bg-[#030d1b] px-4 text-[#f2c779] text-base md:text-lg font-semibold">MAXY Business &amp; Technology Academy</span>
+    </div>
+
+    <div class="bg-gradient-to-br from-[#06162a] to-[#031b36] border border-[#f2c779]/50 rounded-2xl p-6 md:p-10 shadow-2xl flex flex-col lg:flex-row gap-8 items-center">
+      <div class="w-full lg:w-3/5 space-y-4 text-left">
+        <span class="bg-[#f2c779] text-[#030d1b] font-extrabold text-[10px] md:text-xs px-3 py-1 rounded-full uppercase tracking-wider">Masterclass &amp; Bootcamp</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-[#f2c779]">Scale Your Enterprise with Tech &amp; Business Mastery</h2>
+        <p class="text-xs md:text-sm text-gray-300 leading-relaxed">
+          Join our intensive digital transformation and food-tech masterclass. Whether you want to digitize your supply chain, leverage e-commerce technologies, automate customer acquisition, or build a scalable consumer brand, MAXY Academy provides hands-on mentorship from industry experts.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-gray-300">
+          <div class="flex items-center gap-2"><i class="fa-solid fa-laptop-code text-[#f2c779]"></i> <span>Digital Tools &amp; Automation</span></div>
+          <div class="flex items-center gap-2"><i class="fa-solid fa-chart-line text-[#f2c779]"></i> <span>Growth Marketing &amp; Sales Systems</span></div>
+          <div class="flex items-center gap-2"><i class="fa-solid fa-boxes-stacked text-[#f2c779]"></i> <span>Supply Chain &amp; Packaging Tech</span></div>
+          <div class="flex items-center gap-2"><i class="fa-solid fa-certificate text-[#f2c779]"></i> <span>Official MAXY Certification</span></div>
+        </div>
+      </div>
+
+      <!-- Booking Card -->
+      <div class="w-full lg:w-2/5 bg-[#030d1b] border border-slate-700 p-6 rounded-xl text-center shadow-inner">
+        <h3 class="text-[#f2c779] font-bold text-base mb-1">Upcoming Cohort</h3>
+        <p class="text-gray-400 text-xs mb-4">Limited Seats Available (Hybrid Sessions)</p>
+        <div class="text-2xl font-extrabold text-white mb-4">₦45,000 <span class="text-xs font-normal text-gray-400">/ attendee</span></div>
+        <button onclick="toggleModal('bootcamp-modal')" class="w-full bg-[#f2c779] hover:bg-[#e5b356] text-[#030d1b] font-bold py-3 px-4 rounded text-xs transition-colors shadow-md flex justify-center items-center gap-2 cursor-pointer">
+          <i class="fa-solid fa-graduation-cap"></i> Register &amp; Book Slot
+        </button>
+      </div>
+    </div>
+    <!-- Academy Cohort Urgency Countdown -->
+<div class="my-4 bg-[#030d1b] border border-slate-700 p-3 rounded-lg text-center">
+    <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-2 font-semibold">Next Cohort Registration Closes In:</p>
+    <div id="cohort-countdown" class="flex justify-center gap-2 text-xs font-bold text-[#f2c779]">
+        <div class="bg-slate-800 px-2.5 py-1.5 rounded"><span id="cohort-days">05</span><span class="text-[9px] block text-gray-400 font-normal">Days</span></div>
+        <div class="bg-slate-800 px-2.5 py-1.5 rounded"><span id="cohort-hours">12</span><span class="text-[9px] block text-gray-400 font-normal">Hours</span></div>
+        <div class="bg-slate-800 px-2.5 py-1.5 rounded"><span id="cohort-mins">45</span><span class="text-[9px] block text-gray-400 font-normal">Mins</span></div>
+        <div class="bg-slate-800 px-2.5 py-1.5 rounded"><span id="cohort-secs">30</span><span class="text-[9px] block text-gray-400 font-normal">Secs</span></div>
+    </div>
+</div>
+  </section>
+
+  <!-- ==================== BOOTCAMP BOOKING MODAL ==================== -->
+  <div id="bootcamp-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 items-center justify-center p-4">
+    <div class="bg-[#06162a] border border-[#f2c779] rounded-xl max-w-lg w-full max-h-[90vh] flex flex-col p-6 text-left relative shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-3 mb-4">
+        <h3 class="text-[#f2c779] font-bold text-lg flex items-center gap-2">
+          <i class="fa-solid fa-graduation-cap"></i> Bootcamp Registration
+        </h3>
+        <button onclick="toggleModal('bootcamp-modal')" class="text-gray-400 hover:text-white text-xl cursor-pointer" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="overflow-y-auto pr-1">
+        <p class="text-xs text-gray-300 mb-4">
+          Secure your slot for the MAXY Business &amp; Technology Masterclass. Fill out your details below to finalize booking via WhatsApp.
+        </p>
+
+        <form id="bootcamp-form" onsubmit="submitBootcampBooking(event)" class="space-y-3 text-xs">
+          <div>
+            <label class="block text-gray-300 font-semibold mb-1">Full Name *</label>
+            <input type="text" id="bc-name" required placeholder="Enter your full name" class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-white focus:outline-none focus:border-[#f2c779]">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 font-semibold mb-1">Email Address *</label>
+            <input type="email" id="bc-email" required placeholder="name@example.com" class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-white focus:outline-none focus:border-[#f2c779]">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 font-semibold mb-1">Phone / WhatsApp Number *</label>
+            <input type="tel" id="bc-phone" required placeholder="+234 812 345 6789" class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-white focus:outline-none focus:border-[#f2c779]">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 font-semibold mb-1">Track / Area of Focus *</label>
+            <select id="bc-track" required class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-[#f2c779] focus:outline-none focus:border-[#f2c779]">
+              <option value="Business & Enterprise Scaling">Business Strategy &amp; Enterprise Scaling</option>
+              <option value="E-Commerce & Digital Tech">E-Commerce &amp; Digital Technology Integration</option>
+              <option value="Food Processing & Packaging Tech">Food Processing &amp; Packaging Technology</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full bg-[#f2c779] hover:bg-[#e5b356] text-[#030d1b] font-bold py-3 rounded text-xs transition-colors mt-2 flex justify-center items-center gap-2 cursor-pointer">
+            <span>Confirm Bootcamp Booking via WhatsApp</span>
+            <i class="fa-brands fa-whatsapp text-sm"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ==================== REFERRAL PROGRAM SECTION ==================== -->
+  <section id="referral" class="px-4 py-8 max-w-6xl mx-auto w-full">
+    <div class="relative text-center mb-8">
+      <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
+      <span class="relative bg-[#030d1b] px-4 text-[#f2c779] text-base md:text-lg font-semibold">MAXY Referral Rewards</span>
+    </div>
+
+    <div class="bg-[#06162a] border border-[#f2c779]/40 rounded-xl p-6 md:p-8 text-center max-w-3xl mx-auto shadow-xl">
+      <div class="text-[#f2c779] text-3xl mb-3"><i class="fa-solid fa-gift"></i></div>
+      <h2 class="text-xl md:text-2xl font-bold text-[#f2c779] mb-2">Refer Friends &amp; Earn Exclusive Rewards</h2>
+      <p class="text-xs md:text-sm text-gray-300 leading-relaxed mb-6">
+        Spread the word about MAXY! For every friend or business partner you refer who pre-orders our products or books our masterclass, you earn special discounts or an exclusive complimentary snack pack at launch.
+      </p>
+      <button onclick="toggleModal('referral-modal')" class="bg-[#f2c779] hover:bg-[#e5b356] text-[#030d1b] font-bold text-xs md:text-sm py-3 px-6 rounded-lg transition-colors inline-flex items-center gap-2 shadow-md">
+        <i class="fa-solid fa-link"></i> Generate My Referral Link
+      </button>
+    </div>
+  </section>
+
+  <!-- ==================== REFERRAL MODAL ==================== -->
+  <div id="referral-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 items-center justify-center p-4">
+    <div class="bg-[#06162a] border border-[#f2c779] rounded-xl max-w-md w-full flex flex-col p-6 text-left relative shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-3 mb-4">
+        <h3 class="text-[#f2c779] font-bold text-lg flex items-center gap-2">
+          <i class="fa-solid fa-share-nodes"></i> Your Referral Hub
+        </h3>
+        <button onclick="toggleModal('referral-modal')" class="text-gray-400 hover:text-white text-xl" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <p class="text-gray-300">
+          Enter your name or phone number below to generate your unique referral code and tracking link instantly!
+        </p>
+
+        <div>
+          <label class="block text-gray-300 font-semibold mb-1">Your Name / Handle *</label>
+          <input type="text" id="ref-username" placeholder="e.g. Sarah_MAXY" class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-white focus:outline-none focus:border-[#f2c779]">
+        </div>
+
+        <button onclick="generateReferralLink()" class="w-full bg-[#f2c779] hover:bg-[#e5b356] text-[#030d1b] font-bold py-2.5 rounded transition-colors text-xs">
+          Generate Link
+        </button>
+
+        <div id="referral-result" class="hidden space-y-2 pt-2 border-t border-slate-700">
+          <label class="block text-[#f2c779] font-bold">Your Unique Referral Link:</label>
+          <div class="flex gap-2">
+            <input type="text" id="ref-output" readonly class="w-full bg-[#030d1b] border border-slate-700 rounded p-2 text-gray-300 text-xs select-all">
+            <button onclick="copyReferralLink()" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-2 rounded text-xs"><i class="fa-solid fa-copy"></i></button>
+          </div>
+          <p class="text-[11px] text-gray-400">Share this link with friends on WhatsApp or social media to start earning discounts and special packs!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MEMBER ACCOUNT & DASHBOARD MODAL ==================== -->
+  <div id="account-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 items-center justify-center p-4">
+    <div class="bg-[#06162a] border border-[#f2c779] rounded-xl max-w-lg w-full max-h-[90vh] flex flex-col p-6 text-left relative shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-3 mb-4">
+        <h3 id="account-modal-title" class="text-[#f2c779] font-bold text-lg flex items-center gap-2">
+          <i class="fa-solid fa-user-circle"></i> Member Portal
+        </h3>
+        <button onclick="toggleModal('account-modal')" class="text-gray-400 hover:text-white text-xl" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="overflow-y-auto pr-1 text-xs">
+        <!-- Login Form View -->
+        <div id="auth-view" class="space-y-4">
+          <p class="text-gray-300">
+            Sign in to access your pre-order reservations, saved wishlist items, referral rewards, and academy resource vault.
+          </p>
+          <form onsubmit="loginMember(event)" class="space-y-3">
+            <div>
+              <label class="block text-gray-300 font-semibold mb-1">Email Address *</label>
+              <input type="email" id="member-email" required placeholder="name@example.com" class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-white focus:outline-none focus:border-[#f2c779]">
+            </div>
+            <div>
+              <label class="block text-gray-300 font-semibold mb-1">Password *</label>
+              <input type="password" id="member-pass" required placeholder="••••••••" class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-white focus:outline-none focus:border-[#f2c779]">
+            </div>
+            <button type="submit" class="w-full bg-[#f2c779] hover:bg-[#e5b356] text-[#030d1b] font-bold py-3 rounded text-xs transition-colors shadow-md">
+              Sign In to Dashboard
+            </button>
+          </form>
+        </div>
+
+        <!-- Logged-in Dashboard View -->
+        <div id="dashboard-view" class="hidden space-y-5">
+          <div class="bg-[#030d1b] p-4 rounded-lg border border-slate-800 flex justify-between items-center">
+            <div>
+              <div id="dash-user-email" class="font-bold text-[#f2c779] text-sm">user@example.com</div>
+              <div class="text-[10px] text-gray-400">MAXY VIP Member &amp; Academy Partner</div>
+            </div>
+            <button onclick="logoutMember()" class="bg-red-500/20 text-red-400 hover:bg-red-500/30 px-3 py-1.5 rounded font-bold transition">Sign Out</button>
+          </div>
+
+          <!-- Tabs -->
+          <div class="grid grid-cols-3 gap-2 border-b border-slate-700 pb-3">
+            <button onclick="switchTab('reservations')" id="tab-btn-reservations" class="bg-[#f2c779] text-[#030d1b] font-bold py-1.5 rounded text-center transition">Pre-Orders</button>
+            <button onclick="switchTab('wishlist')" id="tab-btn-wishlist" class="bg-slate-800 text-gray-300 hover:text-white font-bold py-1.5 rounded text-center transition">Wishlist</button>
+            <button onclick="switchTab('academy')" id="tab-btn-academy" class="bg-slate-800 text-gray-300 hover:text-white font-bold py-1.5 rounded text-center transition">Academy Hub</button>
+          </div>
+
+          <!-- Tab 1: Reservations & Pre-Orders -->
+          <div id="tab-reservations" class="space-y-3">
+            <h4 class="font-bold text-[#f2c779] uppercase tracking-wider text-[11px]">Your Reservations &amp; Referrals</h4>
+            <div id="dash-cart-summary" class="bg-[#030d1b] p-3 rounded border border-slate-800">
+              <p class="text-gray-400 text-center">Loading pre-order status...</p>
+            </div>
+            <div class="bg-[#030d1b] p-3 rounded border border-slate-800 space-y-1">
+              <div class="flex justify-between"><span>Referral Status:</span> <span class="text-[#f2c779] font-bold">0 Referrals</span></div>
+              <div class="flex justify-between"><span>Reward Unlocked:</span> <span class="text-gray-300">Pending Launch Milestone</span></div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Wishlist -->
+          <div id="tab-wishlist" class="hidden space-y-3">
+            <h4 class="font-bold text-[#f2c779] uppercase tracking-wider text-[11px]">Saved Products &amp; Favorites</h4>
+            <div id="dash-wishlist-container" class="space-y-2">
+              <p class="text-gray-400 text-center py-4">Your wishlist is empty. Browse and save items!</p>
+            </div>
+          </div>
+
+                <!-- Tab 3: Academy Vault -->
+<div id="tab-academy" class="hidden space-y-3">
+  <h4 class="font-bold text-[#f2c779] uppercase tracking-wider text-[11px]">Masterclass &amp; Bootcamp Resource Vault</h4>
+  <div class="bg-[#030d1b] p-3 rounded border border-slate-800 space-y-2 text-gray-300">
+    <p>
+      <i class="fa-solid fa-file-pdf text-red-400 mr-2"></i> 
+      <a href="Enterprise-Scaling-Blueprint.pdf" download="Enterprise-Scaling-Blueprint.pdf" class="hover:underline text-[#f2c779]">
+        Enterprise-Scaling-Blueprint.pdf
+      </a>
+    </p>
+    <p>
+      <i class="fa-solid fa-video text-blue-400 mr-2"></i> 
+      <a href="https://meet.google.com/gch-zspn-zpa" target="_blank" rel="noopener noreferrer" class="hover:underline text-[#f2c779]">
+        Live Cohort Orientation (Mon, Oct 4, 2027 • 4:30 PM)
+      </a>
+    </p>
+    <p><i class="fa-solid fa-certificate text-yellow-400 mr-2"></i> <span>Certificate: Pending Cohort Completion</span></p>
+  </div>
+</div>
+
+          <!-- VIP Concierge Support Button -->
+          <div class="pt-2">
+            <a href="https://wa.me/2348132225381?text=Hello%20MAXY%20VIP%20Concierge,%20I%20need%20assistance%20with%20my%20member%20account." target="_blank" rel="noopener noreferrer" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-2.5 rounded transition flex items-center justify-center gap-2 text-center block">
+              <i class="fa-brands fa-whatsapp text-sm"></i> Chat with VIP Concierge
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- ==================== LIVE FAQ MODAL (Interactive Accordion) ==================== -->
+  <div id="faq-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 items-center justify-center p-4">
+    <div class="bg-[#06162a] border border-[#f2c779] rounded-xl max-w-2xl w-full max-h-[85vh] flex flex-col p-6 text-left relative shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-3 mb-4">
+        <h3 class="text-[#f2c779] font-bold text-lg flex items-center gap-2">
+          <i class="fa-solid fa-circle-question"></i> Live Interactive FAQ
+        </h3>
+        <button onclick="toggleModal('faq-modal')" class="text-gray-400 hover:text-white text-xl" aria-label="Close">&times;</button>
+      </div>
+
+      <!-- Scrollable Accordions Container -->
+      <div class="overflow-y-auto space-y-3 pr-2 text-xs text-gray-300 leading-relaxed">
+        
+        <!-- FAQ Item 1 -->
+        <div class="bg-[#030d1b] border border-slate-800 rounded-lg overflow-hidden">
+          <button onclick="toggleAccordion('modal-faq-1')" class="w-full p-3.5 text-left font-bold text-white flex justify-between items-center hover:text-[#f2c779] transition-colors">
+            <span>What is MAXY and when is the official launch?</span>
+            <i id="icon-modal-faq-1" class="fa-solid fa-chevron-down text-[#f2c779] transition-transform duration-300"></i>
+          </button>
+          <div id="modal-faq-1" class="hidden px-3.5 pb-3.5 text-gray-300 leading-relaxed border-t border-slate-800/60 pt-2.5">
+            MAXY is a premium artisanal brand founded by Magnus Ifeanyi Akuchie (RC Number 9678352) dedicated to elevating Northern Nigerian street snacks. Our official launch is set for January 2027.
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="bg-[#030d1b] border border-slate-800 rounded-lg overflow-hidden">
+          <button onclick="toggleAccordion('modal-faq-2')" class="w-full p-3.5 text-left font-bold text-white flex justify-between items-center hover:text-[#f2c779] transition-colors">
+            <span>Which products are currently available for pre-order?</span>
+            <i id="icon-modal-faq-2" class="fa-solid fa-chevron-down text-[#f2c779] transition-transform duration-300"></i>
+          </button>
+          <div id="modal-faq-2" class="hidden px-3.5 pb-3.5 text-gray-300 leading-relaxed border-t border-slate-800/60 pt-2.5">
+            Our signature Kuli Kuli variants (Milk, Honey, and Beef) are currently available for pre-order reservation. Other traditional delicacies like Donkwa and Fura will roll out soon.
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="bg-[#030d1b] border border-slate-800 rounded-lg overflow-hidden">
+          <button onclick="toggleAccordion('modal-faq-3')" class="w-full p-3.5 text-left font-bold text-white flex justify-between items-center hover:text-[#f2c779] transition-colors">
+            <span>What does the MAXY Bootcamp &amp; Masterclass cover?</span>
+            <i id="icon-modal-faq-3" class="fa-solid fa-chevron-down text-[#f2c779] transition-transform duration-300"></i>
+          </button>
+          <div id="modal-faq-3" class="hidden px-3.5 pb-3.5 text-gray-300 leading-relaxed border-t border-slate-800/60 pt-2.5">
+            It covers business strategy, digital technology integration, supply chain management, and food-tech processing to help entrepreneurs scale their ventures effectively.
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="bg-[#030d1b] border border-slate-800 rounded-lg overflow-hidden">
+          <button onclick="toggleAccordion('modal-faq-4')" class="w-full p-3.5 text-left font-bold text-white flex justify-between items-center hover:text-[#f2c779] transition-colors">
+            <span>How does the Referral Program work?</span>
+            <i id="icon-modal-faq-4" class="fa-solid fa-chevron-down text-[#f2c779] transition-transform duration-300"></i>
+          </button>
+          <div id="modal-faq-4" class="hidden px-3.5 pb-3.5 text-gray-300 leading-relaxed border-t border-slate-800/60 pt-2.5">
+            Simply generate your unique link from the Referral section, share it with friends, and earn exclusive discounts or complimentary snack packs when they pre-order or book.
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="bg-[#030d1b] border border-slate-800 rounded-lg overflow-hidden">
+          <button onclick="toggleAccordion('modal-faq-5')" class="w-full p-3.5 text-left font-bold text-white flex justify-between items-center hover:text-[#f2c779] transition-colors">
+            <span>How can I reach customer support?</span>
+            <i id="icon-modal-faq-5" class="fa-solid fa-chevron-down text-[#f2c779] transition-transform duration-300"></i>
+          </button>
+          <div id="modal-faq-5" class="hidden px-3.5 pb-3.5 text-gray-300 leading-relaxed border-t border-slate-800/60 pt-2.5">
+            You can reach us directly via WhatsApp at +234 813 222 5381 or email us at maxycrunchykuly@gmail.com.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-700 text-right">
+        <button onclick="toggleModal('faq-modal')" class="bg-[#f2c779] text-[#030d1b] font-bold py-2 px-4 rounded text-xs hover:bg-[#e5b356]">Close FAQ</button>
+      </div>
+    </div>
+  </div>
+  <!-- ==================== INTERACTIVE FEEDBACK & REVIEWS ==================== -->
+  <section id="reviews" class="py-10 px-4 max-w-4xl mx-auto w-full">
+    <div class="relative text-center mb-8">
+      <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
+      <span class="relative bg-[#030d1b] px-4 text-[#f2c779] text-base md:text-lg font-semibold">Community Feedback & Reviews</span>
+    </div>
+
+    <!-- Review Submission Form -->
+    <div class="bg-[#06162a] border border-[#f2c779]/30 rounded-xl p-6 shadow-xl mb-10 max-w-xl mx-auto">
+      <h3 class="text-[#f2c779] font-bold text-sm md:text-base uppercase tracking-wider mb-4 text-center">Share Your Thoughts</h3>
+      <form id="feedback-form" onsubmit="submitFeedback(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block text-gray-300 font-semibold mb-1">Your Name</label>
+          <input type="text" id="reviewer-name" required placeholder="Enter your full name" class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-white focus:outline-none focus:border-[#f2c779]">
+        </div>
+        <div>
+          <label class="block text-gray-300 font-semibold mb-1">Your Rating</label>
+          <select id="reviewer-rating" required class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-[#f2c779] focus:outline-none focus:border-[#f2c779]">
+            <option value="5">⭐⭐⭐⭐⭐ (5/5) - Excellent</option>
+            <option value="4">⭐⭐⭐⭐ (4/5) - Very Good</option>
+            <option value="3">⭐⭐⭐ (3/5) - Average</option>
+            <option value="1">⭐ (1/5) - Poor</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-gray-300 font-semibold mb-1">Your Feedback / Review</label>
+          <textarea id="reviewer-comment" rows="3" required placeholder="Tell us what flavor you're excited about or share your experience..." class="w-full bg-[#030d1b] border border-slate-700 rounded p-2.5 text-white focus:outline-none focus:border-[#f2c779]"></textarea>
+        </div>
+        <button type="submit" id="submit-btn" class="w-full bg-[#f2c779] hover:bg-[#e5b356] text-[#030d1b] font-bold py-2.5 rounded transition-colors text-xs flex justify-center items-center gap-2">
+          <span>Submit Review</span>
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- Live Approved Feedback Cards Wall -->
+    <div class="space-y-4">
+      <h4 class="text-xs font-bold uppercase tracking-wider text-gray-400 text-center">What People Are Saying</h4>
+      <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <p class="text-gray-500 text-xs text-center col-span-full py-4">Loading community reviews...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOUNDER, MISSION & VISION SECTION ==================== -->
+  <section id="about" class="text-center py-10 px-4 max-w-4xl mx-auto w-full">
+    <div class="relative text-center mb-8">
+      <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
+      <span class="relative bg-[#030d1b] px-4 text-[#f2c779] text-base md:text-lg font-semibold">Meet The Founder</span>
+    </div>
+
+    <div class="mb-10">
+      <img src="images/founder.jpg" onerror="this.onerror=null; this.src='https://via.placeholder.com/100?text=Founder'" alt="Magnus Ifeanyi Akuchie" class="w-24 h-24 rounded-full border-2 border-[#f2c779] mx-auto mb-3 object-cover shadow-lg">
+      <h3 class="text-[#f2c779] font-bold text-lg">Magnus Ifeanyi Akuchie</h3>
+      <p class="text-gray-400 text-xs uppercase tracking-wider font-semibold">Founder &amp; CEO</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+      <!-- Mission Card -->
+      <div class="bg-[#06162a] border border-slate-800 p-6 rounded-lg shadow-md flex flex-col justify-center items-center">
+        <div class="text-[#f2c779] text-xl mb-2"><i class="fa-solid fa-bullseye"></i></div>
+        <h4 class="text-[#f2c779] font-bold text-sm md:text-base uppercase tracking-wider mb-2">Our Mission</h4>
+        <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
+          Redefining and reimagining Northern Nigerian street snacks for both national and global stages, repacked for every household.
+        </p>
+      </div>
+
+      <!-- Vision Card -->
+      <div class="bg-[#06162a] border border-slate-800 p-6 rounded-lg shadow-md flex flex-col justify-center items-center">
+        <div class="text-[#f2c779] text-xl mb-2"><i class="fa-solid fa-eye"></i></div>
+        <h4 class="text-[#f2c779] font-bold text-sm md:text-base uppercase tracking-wider mb-2">Our Vision</h4>
+        <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
+          To make MAXY a go-to snack for breakfast alongside tea, cornflakes, oats, custard, pap, noodles, and garri, as well as a snack enjoyed by people from all walks of life.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer id="contact" class="border-t border-slate-800 py-6 px-6 text-xs text-gray-400">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+      <div>&copy; 2026 MAXY. All rights reserved.</div>
+      <div class="font-semibold text-gray-300">RC Number 9678352</div>
+
+      <!-- Legal Links -->
+      <div class="flex gap-4 text-xs">
+        <button onclick="toggleModal('faq-modal')" class="hover:text-[#f2c779] transition-colors underline">FAQ</button>
+        <span>|</span>
+        <button onclick="toggleModal('terms-modal')" class="hover:text-[#f2c779] transition-colors underline">Terms &amp; Conditions</button>
+        <span>|</span>
+        <button onclick="toggleModal('privacy-modal')" class="hover:text-[#f2c779] transition-colors underline">Privacy Policy</button>
+      </div>
+
+      <!-- Contact Links -->
+      <div class="flex gap-5 text-lg text-white">
+        <a href="https://www.facebook.com/profile.php?id=61579185106202" target="_blank" rel="noopener noreferrer" class="hover:text-[#f2c779] transition-colors" title="Facebook">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="mailto:maxycrunchykuly@gmail.com" class="hover:text-[#f2c779] transition-colors" title="Email Us">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+        <a href="https://wa.me/2348132225381" target="_blank" rel="noopener noreferrer" class="hover:text-[#f2c779] transition-colors" title="Chat on WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== TERMS & PRIVACY MODALS ==================== -->
+  <div id="terms-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 items-center justify-center p-4">
+    <div class="bg-[#06162a] border border-[#f2c779] rounded-lg max-w-2xl w-full max-h-[80vh] flex flex-col p-6 text-left relative shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-3 mb-4">
+        <h3 class="text-[#f2c779] font-bold text-lg">Terms &amp; Conditions</h3>
+        <button onclick="toggleModal('terms-modal')" class="text-gray-400 hover:text-white text-xl" aria-label="Close">&times;</button>
+      </div>
+      <div class="overflow-y-auto space-y-3 text-xs text-gray-300 pr-2 leading-relaxed">
+        <p><strong>1. Introduction:</strong> Welcome to MAXY. By accessing our platform or purchasing our products, you agree to comply with these Terms &amp; Conditions.</p>
+        <p><strong>2. Product Availability:</strong> Product orders are subject to availability. Prices and availability are subject to change prior to official launch dates.</p>
+        <p><strong>3. Orders &amp; Payment:</strong> Orders are placed through WhatsApp or direct contact with our team. Payment details will be shared during order confirmation, and your order is confirmed once payment is verified.</p>
+        <p><strong>4. Intellectual Property:</strong> All content, images, and branding associated with MAXY are the intellectual property of Magnus Ifeanyi Akuchie and MAXY brand (RC Number 9678352).</p>
+      </div>
+      <button onclick="toggleModal('terms-modal')" class="mt-4 bg-[#f2c779] text-[#030d1b] font-bold py-2 rounded text-xs hover:bg-[#e5b356] transition-colors">Close</button>
+    </div>
+  </div>
+
+  <div id="privacy-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 items-center justify-center p-4">
+    <div class="bg-[#06162a] border border-[#f2c779] rounded-lg max-w-2xl w-full max-h-[80vh] flex flex-col p-6 text-left relative shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-3 mb-4">
+        <h3 class="text-[#f2c779] font-bold text-lg">Privacy Policy</h3>
+        <button onclick="toggleModal('privacy-modal')" class="text-gray-400 hover:text-white text-xl" aria-label="Close">&times;</button>
+      </div>
+      <div class="overflow-y-auto space-y-3 text-xs text-gray-300 pr-2 leading-relaxed">
+        <p><strong>1. Data Collection:</strong> We collect essential information such as contact details and shipping addresses strictly to fulfill orders and communicate updates regarding MAXY products.</p>
+        <p><strong>2. Data Protection:</strong> We handle your personal information in line with the Nigeria Data Protection Act (NDPA) 2023. It is kept confidential and is never sold or shared with unauthorized third parties.</p>
+        <p><strong>3. Cookies:</strong> Our website uses minimal cookies to improve navigation and user experience during your visit.</p>
+        <p><strong>4. Contact Us:</strong> For any privacy-related queries, please contact our support team through our social channels or official contact points.</p>
+      </div>
+      <button onclick="toggleModal('privacy-modal')" class="mt-4 bg-[#f2c779] text-[#030d1b] font-bold py-2 rounded text-xs hover:bg-[#e5b356] transition-colors">Close</button>
+    </div>
+  </div>
+
+  <!-- ==================== CART OVERLAY MODAL ==================== -->
+  <div id="cart-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-[#06162a] border border-slate-700 rounded-xl w-full max-w-md p-6 flex flex-col max-h-[90vh]">
+
+      <div class="flex justify-between items-center border-b border-slate-700 pb-3 mb-4">
+        <h2 class="text-lg font-bold text-[#f2c779] flex items-center gap-2">
+          <i class="fa-solid fa-basket-shopping"></i> Your Pre-Order Cart
+        </h2>
+        <button onclick="closeCartModal()" class="text-gray-400 hover:text-white text-lg" aria-label="Close cart"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Cart Items List -->
+      <div id="cart-items-list" class="overflow-y-auto flex-grow space-y-3 pr-1 mb-4 text-xs">
+        <p class="text-gray-400 text-center py-6">Your cart is empty.</p>
+      </div>
+
+      <!-- Pricing Note -->
+      <div class="border-t border-slate-700 pt-3 mb-4 flex justify-between items-center">
+        <span class="text-xs text-gray-300 font-semibold">Pricing:</span>
+        <span class="text-xs font-bold text-[#f2c779]">Shared at launch</span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex gap-3">
+        <button onclick="closeCartModal()" class="w-1/3 border border-slate-700 hover:bg-slate-800 text-xs font-bold py-2.5 rounded transition">Close</button>
+        <button onclick="checkoutViaWhatsApp()" class="w-2/3 bg-green-600 hover:bg-green-500 text-white text-xs font-bold py-2.5 rounded transition text-center flex items-center justify-center gap-2">
+          <i class="fa-brands fa-whatsapp text-sm"></i> Order via WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+   <!-- ==================== TOAST NOTIFICATION ==================== -->
+  <div id="maxy-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-32 opacity-0 transition-all duration-300 z-50 bg-[#030d1b] border border-[#f2c779] text-white px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3">
+    <i class="fa-solid fa-circle-check text-green-400 text-lg"></i>
+    <div>
+        <p class="font-bold text-sm text-[#f2c779]">Success!</p>
+        <p id="toast-message" class="text-xs text-gray-300">Action registered. Redirecting...</p>
+    </div>
+</div>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    const whatsappBusinessNumber = "2348132225381";
+    const CART_KEY = 'maxyCart';
+    const WISHLIST_KEY = 'maxyWishlist';
+    const USER_KEY = 'maxyUser';
+    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyX3a-PjhYB93hm9nXgrl_RGzgYNfAce-orI_CiTHuWaLQ8JZ329LSXexACCK4kphgs/exec";
+    let toastTimeout;
+
+    // ---------- Mobile Menu Toggle ----------
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // ---------- Modal Controls ----------
+    function toggleModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        if (id === 'account-modal') {
+          checkMemberAuth();
+        }
+        modal.classList.toggle('hidden');
+        modal.classList.toggle('flex');
+      }
+    }
+
+    // ---------- Countdown Timer ----------
+    function updateCountdown() {
+      const launchDate = new Date('January 1, 2027 00:00:00').getTime();
+      const now = new Date().getTime();
+      const diff = launchDate - now;
+
+      if (diff > 0) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('days').innerText = String(days).padStart(2, '0');
+        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('mins').innerText = String(mins).padStart(2, '0');
+        document.getElementById('secs').innerText = String(secs).padStart(2, '0');
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ---------- Cart Logic ----------
+    function loadCart() {
+      try {
+        const data = JSON.parse(localStorage.getItem(CART_KEY));
+        return Array.isArray(data) ? data : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    let cart = loadCart();
+
+    function updateCartBadge() {
+      const totalCount = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      document.getElementById('cart-count').innerText = totalCount;
+    }
+
+    function openCartModal() {
+      renderCartItems();
+      toggleModal('cart-modal');
+    }
+
+    function closeCartModal() {
+      const modal = document.getElementById('cart-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        toggleModal('cart-modal');
+      }
+    }
+
+    function renderCartItems() {
+      const listContainer = document.getElementById('cart-items-list');
+      if (cart.length === 0) {
+        listContainer.innerHTML = '<p class="text-gray-400 text-center py-6">Your cart is empty.</p>';
+        return;
+      }
+
+      let html = '';
+      cart.forEach((item, index) => {
+        html += `
+          <div class="flex justify-between items-center bg-[#030d1b] border border-slate-800 p-3 rounded">
+            <div>
+              <div class="font-bold text-white">${item.name}</div>
+              <div class="text-gray-400 text-[11px]">Qty: ${item.qty || 1}</div>
+            </div>
+            <button onclick="removeCartItem(${index})" class="text-red-400 hover:text-red-300" aria-label="Remove item">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        `;
+      });
+      listContainer.innerHTML = html;
+    }
+
+    function removeCartItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      updateCartBadge();
+      renderCartItems();
+    }
+
+    function checkoutViaWhatsApp() {
+      if (cart.length === 0) {
+        showMaxyToast("Your cart is empty!");
+        return;
+      }
+
+      let message = "*NEW PRE-ORDER ENQUIRY (MAXY)*\n\nItems in Cart:\n";
+      cart.forEach(item => {
+        message += `• ${item.name} (Qty: ${item.qty || 1})\n`;
+      });
+      message += "\nPlease let me know how to finalize my reservation!";
+
+      const whatsappURL = `https://wa.me/${whatsappBusinessNumber}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappURL, '_blank');
+    }
+
+    // ---------- Wishlist Logic ----------
+    function loadWishlist() {
+      try {
+        const data = JSON.parse(localStorage.getItem(WISHLIST_KEY));
+        return Array.isArray(data) ? data : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    let wishlist = loadWishlist();
+
+    function addToWishlist(productName) {
+      if (!wishlist.includes(productName)) {
+        wishlist.push(productName);
+        localStorage.setItem(WISHLIST_KEY, JSON.stringify(wishlist));
+        showMaxyToast(`${productName} added to wishlist!`);
+      } else {
+        showMaxyToast(`${productName} is already in your wishlist.`);
+      }
+    }
+
+    function removeFromWishlist(productName) {
+      wishlist = wishlist.filter(item => item !== productName);
+      localStorage.setItem(WISHLIST_KEY, JSON.stringify(wishlist));
+      renderWishlistItems();
+      showMaxyToast("Item removed from wishlist.");
+    }
+
+    function renderWishlistItems() {
+      const container = document.getElementById('dash-wishlist-container');
+      if (wishlist.length === 0) {
+        container.innerHTML = '<p class="text-gray-400 text-center py-4">Your wishlist is empty. Browse and save items!</p>';
+        return;
+      }
+      let html = '';
+      wishlist.forEach(item => {
+        html += `
+          <div class="flex justify-between items-center bg-[#030d1b] border border-slate-800 p-2.5 rounded">
+            <span class="text-white font-semibold">${item}</span>
+            <button onclick="removeFromWishlist('${item}')" class="text-red-400 hover:text-red-300 text-xs px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    // ---------- Member Auth & Dashboard Logic ----------
+    function checkMemberAuth() {
+      const user = localStorage.getItem(USER_KEY);
+      const authView = document.getElementById('auth-view');
+      const dashView = document.getElementById('dashboard-view');
+      const modalTitle = document.getElementById('account-modal-title');
+
+      if (user) {
+        authView.classList.add('hidden');
+        dashView.classList.remove('hidden');
+        modalTitle.innerHTML = '<i class="fa-solid fa-gauge-high"></i> Member Dashboard';
+        document.getElementById('dash-user-email').innerText = user;
+        renderDashboardReservations();
+        renderWishlistItems();
+      } else {
+        authView.classList.remove('hidden');
+        dashView.classList.add('hidden');
+        modalTitle.innerHTML = '<i class="fa-solid fa-user-circle"></i> Member Portal';
+      }
+    }
+
+    function loginMember(event) {
+      event.preventDefault();
+      const email = document.getElementById('member-email').value.trim();
+      localStorage.setItem(USER_KEY, email);
+      showMaxyToast("Signed in successfully!");
+      checkMemberAuth();
+    }
+
+    function logoutMember() {
+      localStorage.removeItem(USER_KEY);
+      showMaxyToast("Signed out successfully.");
+      checkMemberAuth();
+    }
+
+    function switchTab(tabName) {
+      const tabs = ['reservations', 'wishlist', 'academy'];
+      tabs.forEach(t => {
+        document.getElementById(`tab-${t}`).classList.add('hidden');
+        document.getElementById(`tab-btn-${t}`).classList.remove('bg-[#f2c779]', 'text-[#030d1b]');
+        document.getElementById(`tab-btn-${t}`).classList.add('bg-slate-800', 'text-gray-300');
+      });
+      document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+      document.getElementById(`tab-btn-${tabName}`).classList.remove('bg-slate-800', 'text-gray-300');
+      document.getElementById(`tab-btn-${tabName}`).classList.add('bg-[#f2c779]', 'text-[#030d1b]');
+    }
+
+    function renderDashboardReservations() {
+      const container = document.getElementById('dash-cart-summary');
+      if (cart.length === 0) {
+        container.innerHTML = '<p class="text-gray-400 text-center">No active pre-order reservations found.</p>';
+        return;
+      }
+      let html = '<div class="space-y-2">';
+      cart.forEach(item => {
+        html += `<div class="flex justify-between text-white"><span>${item.name} (x${item.qty || 1})</span><span class="text-[#f2c779]">Reserved</span></div>`;
+      });
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    // ---------- Bulk Wholesale Request Submission ----------
+    function submitWholesaleRequest(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('ws-name').value.trim();
+      const email = document.getElementById('ws-email').value.trim();
+      const phone = document.getElementById('ws-phone').value.trim();
+      const qty = document.getElementById('ws-qty').value;
+      const flavor = document.getElementById('ws-flavor').value;
+      const address = document.getElementById('ws-address').value.trim();
+
+      const message = 
+`*NEW MASTER CARTON BULK ORDER INQUIRY*
+
+*Name/Business:* ${name}
+*Email:* ${email}
+*Phone:* ${phone}
+*Carton Quantity:* ${qty} Master Carton(s) (50 packs each)
+*Flavor Mix:* ${flavor}
+*Delivery Address:* ${address}`;
+
+      const whatsappUrl = `https://wa.me/${whatsappBusinessNumber}?text=${encodeURIComponent(message)}`;
+
+      showMaxyToast("Redirecting your inquiry to WhatsApp...");
+      toggleModal('wholesale-modal');
+      document.getElementById('wholesale-form').reset();
+
+      setTimeout(() => {
+        window.open(whatsappUrl, '_blank');
+      }, 500);
+    }
+
+    // ---------- Bootcamp Booking Submission ----------
+    function submitBootcampBooking(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('bc-name').value.trim();
+      const email = document.getElementById('bc-email').value.trim();
+      const phone = document.getElementById('bc-phone').value.trim();
+      const track = document.getElementById('bc-track').value;
+
+      const message = 
+`*NEW BOOTCAMP & MASTERCLASS BOOKING*
+
+*Full Name:* ${name}
+*Email:* ${email}
+*Phone:* ${phone}
+*Selected Track:* ${track}
+*Fee:* ₦45,000`;
+
+      const whatsappUrl = `https://wa.me/${whatsappBusinessNumber}?text=${encodeURIComponent(message)}`;
+
+      showMaxyToast("Redirecting your booking to WhatsApp...");
+      toggleModal('bootcamp-modal');
+      document.getElementById('bootcamp-form').reset();
+
+      setTimeout(() => {
+        window.open(whatsappUrl, '_blank');
+      }, 500);
+    }
+
+    // ---------- Referral Link Generator ----------
+    function generateReferralLink() {
+      const username = document.getElementById('ref-username').value.trim();
+      if (!username) {
+        showMaxyToast("Please enter your name or handle first!");
+        return;
+      }
+      const refCode = encodeURIComponent(username.toLowerCase().replace(/\s+/g, '-'));
+      const generatedLink = window.location.origin + window.location.pathname + "?ref=" + refCode;
+      
+      document.getElementById('ref-output').value = generatedLink;
+      document.getElementById('referral-result').classList.remove('hidden');
+      showMaxyToast("Referral link generated successfully!");
+    }
+
+    function copyReferralLink() {
+      const copyText = document.getElementById('ref-output');
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(copyText.value);
+      showMaxyToast("Referral link copied to clipboard!");
+    }
+
+    // ---------- Safe Text Helper ----------
+    function escapeHTML(str) {
+      return String(str == null ? '' : str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // ---------- Google Apps Script Feedback System ----------
+    async function loadFeedback() {
+      const container = document.getElementById('reviews-container');
+
+      try {
+        const response = await fetch(GOOGLE_APPS_SCRIPT_URL);
+        const data = await response.json();
+
+        if (data.status === 'success' && data.reviews && data.reviews.length > 0) {
+          let html = '';
+          data.reviews.forEach(raw => {
+            const review = {
+              name: escapeHTML(raw.name),
+              date: escapeHTML(raw.date || ''),
+              comment: escapeHTML(raw.comment),
+              rating: Math.min(5, Math.max(1, parseInt(raw.rating) || 5))
+            };
+            const stars = '⭐'.repeat(review.rating);
+            html += `
+              <div class="bg-[#06162a] border border-slate-800 p-4 rounded-lg text-left shadow-md flex flex-col justify-between">
+                <div>
+                  <div class="flex justify-between items-center mb-2">
+                    <span class="font-bold text-[#f2c779] text-xs">${review.name}</span>
+                    <span class="text-[10px] text-gray-400">${review.date || ''}</span>
+                  </div>
+                  <div class="text-[#f2c779] text-xs mb-2">${stars}</div>
+                  <p class="text-gray-300 text-xs leading-relaxed">"${review.comment}"</p>
+                </div>
+              </div>
+            `;
+          });
+          container.innerHTML = html;
+        } else {
+          container.innerHTML = '<p class="text-gray-400 text-xs text-center col-span-full">No reviews yet. Be the first to leave one!</p>';
+        }
+      } catch (err) {
+        container.innerHTML = '<p class="text-gray-400 text-xs text-center col-span-full">Unable to load reviews right now.</p>';
+      }
+    }
+
+    async function submitFeedback(event) {
+      event.preventDefault();
+      const submitBtn = document.getElementById('submit-btn');
+      const name = document.getElementById('reviewer-name').value.trim();
+      const rating = document.getElementById('reviewer-rating').value;
+      const comment = document.getElementById('reviewer-comment').value.trim();
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+
+      try {
+        const payload = { name, rating, comment };
+
+        await fetch(GOOGLE_APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+
+        showMaxyToast("Review submitted! Pending approval.");
+        document.getElementById('feedback-form').reset();
+      } catch (err) {
+        showMaxyToast("Error submitting feedback. Try again.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Submit Review</span> <i class="fa-solid fa-paper-plane"></i>';
+      }
+    }
+
+    // ---------- Coming Soon Trigger ----------
+    function triggerComingSoon(productName) {
+      showMaxyToast(`${productName} will be available at official launch!`);
+    }
+
+    // ---------- Toast Helper ----------
+    function showMaxyToast(message, callback) {
+      const toast = document.getElementById('maxy-toast');
+      const msgElement = document.getElementById('toast-message');
+      
+      if(msgElement) msgElement.innerText = message;
+      
+      toast.classList.remove('translate-y-32', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-32', 'opacity-0');
+          if(callback) callback();
+      }, 1500);
+    }
+
+    // Initialize Page
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartBadge();
+      loadFeedback();
+    });
+    // ---------- Academy Cohort Countdown Timer ----------
+function updateCohortCountdown() {
+    // Set your target cohort closing date/time here
+    const cohortDeadline = new Date('October 20, 2026 23:59:59').getTime();
+    const now = new Date().getTime();
+    const diff = cohortDeadline - now;
+
+    if (diff > 0) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const dEl = document.getElementById('cohort-days');
+        const hEl = document.getElementById('cohort-hours');
+        const mEl = document.getElementById('cohort-mins');
+        const sEl = document.getElementById('cohort-secs');
+
+        if(dEl) dEl.innerText = String(days).padStart(2, '0');
+        if(hEl) hEl.innerText = String(hours).padStart(2, '0');
+        if(mEl) mEl.innerText = String(mins).padStart(2, '0');
+        if(sEl) sEl.innerText = String(secs).padStart(2, '0');
+    }
+}
+setInterval(updateCohortCountdown, 1000);
+updateCohortCountdown();
+function toggleAccordion(id) {
+    const content = document.getElementById(id);
+    const icon = document.getElementById('icon-' + id);
+    
+    if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        if(icon) icon.classList.add('rotate-180');
+    } else {
+        content.classList.add('hidden');
+        if(icon) icon.classList.remove('rotate-180');
+    }
+}
+  </script>
+    <!-- ==================== FLOATING FAQ BUTTON ==================== -->
+  <button onclick="toggleModal('faq-modal')" class="fixed bottom-6 right-6 z-40 bg-[#f2c779] hover:bg-[#e5b356] text-[#030d1b] font-extrabold w-12 h-12 md:w-14 md:h-14 rounded-full shadow-2xl flex items-center justify-center text-xl transition-all duration-300 hover:scale-110 focus:outline-none group" title="Live FAQ">
+    <i class="fa-solid fa-question"></i>
+    <span class="absolute right-16 bg-[#06162a] border border-[#f2c779] text-[#f2c779] text-[11px] font-bold px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-md">
+      Have Questions? Ask FAQ
+    </span>
+  </button>
+  
+
+  <!-- Floating WhatsApp Support Button (Bottom-Left) -->
+  <a href="https://wa.me/2348132225381?text=Hello%20MAXY,%20I'm%20visiting%20your%20website%20and%20need%20assistance." 
+     target="_blank" 
+     rel="noopener noreferrer"
+     class="fixed bottom-6 left-6 z-50 bg-green-600 hover:bg-green-700 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-transform hover:scale-110 active:scale-95"
+     title="Chat with MAXY on WhatsApp">
+      <i class="fa-brands fa-whatsapp text-2xl"></i>
+  </a>
+</body>
+</html>
